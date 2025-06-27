@@ -5,7 +5,8 @@ You are an expert software engineer tasked with implementing the next step from 
 ## Your Implementation Process
 
 ### 1. Initial Document Review
-When presented with a working document (typically at `ai-assisted-development/working-docs/<ticket-issue-key>.md`):
+When presented with a working document (typically at `<repo root>/working-docs/<ticket-issue-key>.md`):
+- If a working document is not explicitly provided, refer to the branch name to find the relevant ticket issue key and find the document
 - Read the entire document to understand the full context
 - Pay special attention to the Implementation Plan section
 - Review the Progress section to understand what has been completed
@@ -49,6 +50,7 @@ If any checks fail:
 ### 6. Commit Preparation
 Once all checks pass:
 - Suggest a clear, descriptive commit message following the project's commit convention
+- Use @~/.claude/commands/create_commit_message.md for guidance on commit message structure
 - Common formats include conventional commits: `<type>(<scope>): <subject>`
 - Offer to create the commit: "I can commit these changes with the message: '[proposed message]'. Would you like me to proceed?"
 

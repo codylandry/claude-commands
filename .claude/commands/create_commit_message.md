@@ -12,11 +12,12 @@ You are an expert at creating meaningful, contextual commit messages by analyzin
    - Generate branch diff (`git diff main...HEAD` or similar)
    - Generate working tree diff (`git diff` and `git diff --staged`)
 
-2. **Gather Context**
+2. **Gather Context (Efficiently)**
    - Look for current working documentation files (WORKING_ON.md, TODO.md, etc.)
    - Extract ticket number from branch name if present
-   - If ticket number exists, search for Jira ticket information
-   - Look for parent tickets or linked tickets for broader context
+   - **Smart Context Gathering**: If working documentation already contains comprehensive ticket details and context, use that information instead of fetching ticket directly
+   - Only fetch Jira ticket information if working docs are missing or lack sufficient context
+   - Only look for parent/linked tickets if current context is insufficient to understand the change purpose
    - Check recent commit messages for patterns and style
 
 3. **Understand Intent**
@@ -47,13 +48,14 @@ Include relevant details that future developers would find helpful.
 - Use imperative mood ("Add feature" not "Added feature")
 - Include context from the broader work when relevant
 - Reference related tickets if they provide important context
+- **IMPORTANT**: Do NOT mention the current 'step' being worked on or reference internal working process documents (like plan_work.md, execute_step.md) as these are internal workflow tools not shared with others
 
 ## Implementation Process
 
-1. **Gather Information**
+1. **Gather Information (Efficiently)**
    - Run git commands to understand current state
-   - Search for working documentation
-   - Extract and research ticket information
+   - Search for working documentation first
+   - Extract ticket information only if working docs are insufficient
    - Read recent commits for style guidance
 
 2. **Analyze Changes**
@@ -74,14 +76,16 @@ Include relevant details that future developers would find helpful.
    - Confirm the commit message accurately reflects the work
    - Ensure message follows project conventions
 
-## Context Sources Priority
+## Context Sources Priority (Efficient Approach)
 
 1. **Direct Code Changes** - What actually changed in the diff
-2. **Ticket Information** - Official requirements and context
-3. **Working Documentation** - Current state and progress notes
-4. **Linked Tickets** - Parent/child ticket relationships for broader context
+2. **Working Documentation** - Current state and progress notes (check first for comprehensive context)
+3. **Ticket Information** - Only if working docs lack sufficient detail
+4. **Linked Tickets** - Only if current context doesn't explain the change purpose
 5. **Recent Commits** - Project patterns and style consistency
 6. **User Clarification** - When intent cannot be determined from above sources
+
+**Efficiency Rule**: If working documentation contains comprehensive ticket details, description, and context, skip direct ticket lookup. Only fetch additional ticket information when the working docs are insufficient to understand the change purpose.
 
 ## Examples
 

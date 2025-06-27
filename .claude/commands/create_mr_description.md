@@ -51,6 +51,8 @@ Enhance understanding with external context:
 ### 4. Description Generation
 Create a professional MR description following this structure:
 
+**IMPORTANT: After generating the description, copy it to the clipboard using `pbcopy` so the user can easily paste it into their merge request.**
+
 ## MR Description Format
 
 ### When GitLab Template Exists
@@ -177,7 +179,8 @@ To generate a merge request description:
 2. **Check for template**: Look for GitLab MR template in `.gitlab/merge_request_templates/`
 3. **Extract context**: Get Jira ticket details if available, incorporate user context
 4. **Generate description**: Create comprehensive description following the appropriate format
-5. **Review and refine**: Ensure description is accurate, complete, and helpful for reviewers
+5. **Copy to clipboard**: Use `pbcopy` to copy the final description to the clipboard
+6. **Review and refine**: Ensure description is accurate, complete, and helpful for reviewers
 
 ## Example Workflow
 
@@ -198,3 +201,5 @@ jira issue view ABC-123 --raw | jq
 ```
 
 Remember: The goal is to create MR descriptions that facilitate effective code reviews, provide clear context for changes, and serve as documentation for future reference. Focus on helping reviewers understand not just what changed, but why it changed and how to verify the changes work correctly.
+
+**Final Step**: Always copy the generated description to the clipboard using `echo "description" | pbcopy` so the user can immediately paste it into their merge request.
