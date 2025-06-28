@@ -14,7 +14,7 @@ When asked to act on merge request comments:
 
 ### 2. Context Collection
 Systematically gather all relevant context:
-- **Working Document**: Check for working document at `ai-assisted-development/working-docs/<ticket-issue-key>.md`
+- **Working Document**: Check for working document at `.ai-workspace/<ticket-issue-key>/working-doc.md`
 - **JIRA Context**: Access the JIRA ticket using: `jira issue view <jira-issue-key>`
 - **Related Tickets**: Examine linked tickets and parent tickets:
   - View linked issues: `jira issue view <jira-issue-key>` (linked issues shown after description)

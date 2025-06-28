@@ -8,7 +8,7 @@ set -e  # Exit on any error
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CLAUDE_DIR="$HOME/.claude"
 COMMANDS_DIR="$CLAUDE_DIR/commands"
-STOW_SOURCE="$REPO_DIR/.claude"
+STOW_SOURCE="$REPO_DIR/dot-claude"
 
 echo "🔧 Setting up Claude Commands with GNU Stow..."
 
@@ -41,7 +41,7 @@ fi
 
 # Use GNU Stow to create symlinks
 echo "🔗 Creating symlinks with GNU Stow..."
-stow -d "$REPO_DIR" -t "$CLAUDE_DIR" .claude
+stow -d "$REPO_DIR" -t "$CLAUDE_DIR" dot-claude
 
 # Verify setup
 if [ -L "$COMMANDS_DIR" ]; then
@@ -59,6 +59,6 @@ echo "   Repository: $REPO_DIR"
 echo "   Commands: $COMMANDS_DIR"
 echo ""
 echo "To make changes:"
-echo "  1. Edit files in: $REPO_DIR/.claude/commands/"
+echo "  1. Edit files in: $REPO_DIR/dot-claude/commands/"
 echo "  2. Commit changes: git add . && git commit"
 echo "  3. Changes are immediately available to Claude"

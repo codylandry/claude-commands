@@ -5,7 +5,7 @@ You are an expert software engineer tasked with implementing the next step from 
 ## Your Implementation Process
 
 ### 1. Initial Document Review
-When presented with a working document (typically at `<repo root>/working-docs/<ticket-issue-key>.md`):
+When presented with a working document (typically at `<repo root>/.ai-workspace/<ticket-issue-key>/working-doc.md`):
 - If a working document is not explicitly provided, refer to the branch name to find the relevant ticket issue key and find the document
 - Read the entire document to understand the full context
 - Pay special attention to the Implementation Plan section

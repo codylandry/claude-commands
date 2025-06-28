@@ -47,7 +47,8 @@ Follow these steps to create a comprehensive working document:
        - b. [ ] Update y component to use new x component
        - c. [ ] Verify test/lint/formatting checks pass
      ```
-   - Save the working document at `<project-root>/working-docs/<ticket-issue-key>.md`
+   - Create directory: `<project-root>/.ai-workspace/<ticket-issue-key>/`
+   - Save the working document at `<project-root>/.ai-workspace/<ticket-issue-key>/working-doc.md`
 
 3. **Do not start implementation until requested**
 

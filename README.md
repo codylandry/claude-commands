@@ -24,8 +24,8 @@ This repository contains custom Claude commands that can be managed with version
 
 2. **Make changes:**
    ```bash
-   # Edit commands in .claude/commands/
-   vim .claude/commands/new_command.md
+   # Edit commands in dot-claude/commands/
+   vim dot-claude/commands/new_command.md
    
    # Commit changes
    git add .
@@ -39,11 +39,13 @@ This repository contains custom Claude commands that can be managed with version
 
 ```
 claude-commands/
-├── .claude/
+├── dot-claude/
 │   └── commands/           # Command files (symlinked to ~/.claude/commands/)
+│       ├── act_on_mr_comments.md
 │       ├── code_review.md
 │       ├── create_commit_message.md
 │       ├── create_mr_description.md
+│       ├── deep_research.md
 │       ├── execute_step.md
 │       └── plan_work.md
 ├── setup.sh              # Setup GNU Stow symlinks
@@ -53,9 +55,11 @@ claude-commands/
 
 ## Available Commands
 
+- **`act_on_mr_comments.md`** - Handle merge request comments and feedback
 - **`code_review.md`** - Comprehensive code review with security analysis
 - **`create_commit_message.md`** - Generate contextual commit messages
 - **`create_mr_description.md`** - Generate merge request descriptions
+- **`deep_research.md`** - Conduct comprehensive research with multiple agents
 - **`execute_step.md`** - Execute implementation steps from working documents  
 - **`plan_work.md`** - Create structured implementation plans
 
@@ -76,13 +80,13 @@ Removes GNU Stow management:
 ## Usage
 
 ### Adding New Commands
-1. Create new `.md` file in `.claude/commands/`
+1. Create new `.md` file in `dot-claude/commands/`
 2. Write your command following Claude command format
 3. Commit changes: `git add . && git commit -m "Add new command"`
 4. Command immediately available in Claude
 
 ### Editing Existing Commands
-1. Edit files in `.claude/commands/`
+1. Edit files in `dot-claude/commands/`
 2. Changes are immediately reflected in Claude
 3. Commit when ready: `git add . && git commit -m "Update command"`
 
@@ -92,7 +96,7 @@ Removes GNU Stow management:
 git log --oneline
 
 # Revert to previous version
-git checkout <commit-hash> .claude/commands/command_name.md
+git checkout <commit-hash> dot-claude/commands/command_name.md
 
 # Create branches for experimental commands
 git checkout -b experimental-features
@@ -117,7 +121,7 @@ git checkout -b experimental-features
 
 1. Fork this repository
 2. Create feature branch: `git checkout -b feature-name`
-3. Add/modify commands in `.claude/commands/`
+3. Add/modify commands in `dot-claude/commands/`
 4. Test commands with Claude
 5. Commit changes: `git commit -m "Add feature"`
 6. Push and create pull request

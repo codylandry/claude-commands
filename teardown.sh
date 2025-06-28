@@ -28,7 +28,7 @@ fi
 
 # Verify the symlink points to our repository
 CURRENT_TARGET=$(readlink "$COMMANDS_DIR")
-EXPECTED_TARGET="$REPO_DIR/.claude/commands"
+EXPECTED_TARGET="$REPO_DIR/dot-claude/commands"
 
 if [ "$CURRENT_TARGET" != "$EXPECTED_TARGET" ]; then
     echo "⚠️  Warning: Commands directory symlink doesn't point to this repository"
@@ -44,20 +44,20 @@ fi
 
 # Remove the stow-managed symlinks
 echo "🗑️  Removing GNU Stow symlinks..."
-stow -d "$REPO_DIR" -t "$CLAUDE_DIR" -D .claude
+stow -d "$REPO_DIR" -t "$CLAUDE_DIR" -D dot-claude
 
 # Copy files back to a regular directory
 echo "📁 Creating regular commands directory..."
 mkdir -p "$COMMANDS_DIR"
 
 echo "📝 Copying command files..."
-cp -r "$REPO_DIR/.claude/commands/"* "$COMMANDS_DIR/"
+cp -r "$REPO_DIR/dot-claude/commands/"* "$COMMANDS_DIR/"
 
 # Verify teardown
 if [ -d "$COMMANDS_DIR" ] && [ ! -L "$COMMANDS_DIR" ]; then
     echo "✅ Success! GNU Stow teardown complete"
     echo "   Commands directory is now a regular directory: $COMMANDS_DIR"
-    echo "   Files copied from repository: $REPO_DIR/.claude/commands/"
+    echo "   Files copied from repository: $REPO_DIR/dot-claude/commands/"
 else
     echo "❌ Error: Teardown failed"
     exit 1
