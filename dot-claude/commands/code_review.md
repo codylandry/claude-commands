@@ -1,6 +1,22 @@
+---
+allowed-tools: [Bash, Read, Grep, Glob]
+description: Comprehensive code review with security analysis and scope validation
+---
+
 # Code Review Command
 
-You are an expert code reviewer and security analyst. Your role is to conduct thorough code reviews of changes in the current branch, identifying areas for improvement across multiple dimensions of code quality.
+Conduct a thorough code review of changes in the current branch, identifying areas for improvement across multiple dimensions of code quality.
+
+## Current Branch Context
+!git branch --show-current
+!git log --oneline -5
+!git diff --name-only HEAD~1..HEAD
+
+## Project Context
+@CLAUDE.md
+@package.json
+@.eslintrc.json || @eslint.config.js
+@tsconfig.json
 
 ## Review Scope
 
@@ -39,78 +55,123 @@ Analyze all changes in the current branch against the base branch (typically mai
 - **Documentation**: Evaluate code comments, API documentation, README updates
 - **Maintainability**: Consider how easy the code will be to modify and extend
 
-## Review Process
+## Automated Analysis Steps
 
-1. **Examine Changed Files**: Use git diff to identify all modified, added, and deleted files
-2. **Analyze Code Context**: Read surrounding code to understand the full picture
-3. **Check Dependencies**: Review any new dependencies or version changes
-4. **Test Analysis**: Examine test files for coverage and quality
-5. **Configuration Review**: Check for configuration changes that might affect security or performance
-6. **Requirements Alignment**: Verify changes align with stated requirements and don't exceed scope
+1. **Changed Files Analysis**
+   !git diff --stat HEAD~1..HEAD
+   !git diff HEAD~1..HEAD --name-only | head -20
+
+2. **Dependency Changes**
+   !git diff HEAD~1..HEAD package.json || echo "No package.json changes"
+   !git diff HEAD~1..HEAD requirements.txt || echo "No requirements.txt changes"
+
+3. **Configuration Changes**
+   !git diff HEAD~1..HEAD --name-only | grep -E '\.(json|yaml|yml|env|config)$' || echo "No config file changes"
+
+4. **Test Coverage Assessment**
+   !find . -name "*test*" -o -name "*spec*" | grep -E '\.(js|ts|py|rb|go)$' | wc -l | awk '{print "Test files found: " $1}'
+
+## Detailed Review Process
+
+1. **Code Quality Analysis**: Examine each changed file for design patterns, SOLID principles, and clean code practices
+2. **Security Review**: Check for vulnerabilities, input validation, and secure coding practices  
+3. **Logic Validation**: Verify the implementation matches requirements without scope creep
+4. **Performance Assessment**: Identify potential bottlenecks and optimization opportunities
+5. **Testing Evaluation**: Ensure adequate test coverage for new and modified functionality
 
 ## Review Output Format
 
 Structure your review as follows:
 
-### Summary
-- Brief overview of changes and overall code quality assessment
-- Risk level: LOW/MEDIUM/HIGH based on security and stability concerns
-- Scope assessment: Does the implementation match the intended requirements?
+### Executive Summary
+- **Files Changed**: [Number] files modified/added/deleted
+- **Risk Level**: LOW/MEDIUM/HIGH based on security and stability concerns
+- **Scope Assessment**: Implementation alignment with stated requirements
+- **Overall Quality**: Brief assessment of code quality and maintainability
 
-### Detailed Findings
+### Priority Findings
 
-#### 🔴 Critical Issues (Must Fix)
-- Security vulnerabilities
-- Breaking changes
-- Major bugs or logic errors
-- Logical inconsistencies
+#### 🔴 Critical Issues (Block Merge)
+- Security vulnerabilities requiring immediate attention
+- Breaking changes that affect API compatibility  
+- Major bugs or logic errors causing incorrect behavior
+- Data integrity or corruption risks
 
-#### 🟡 Important Issues (Should Fix)
-- Code smells and maintainability issues
-- Performance concerns
-- Missing tests for critical paths
-- Unnecessary complexity or over-engineering
+#### 🟡 Important Issues (Fix Before Merge)
+- Performance bottlenecks or resource leaks
+- Code smells affecting maintainability
+- Missing error handling for critical paths
+- Inadequate test coverage for new functionality
 
-#### 🟠 Scope & Logic Concerns (Review Required)
-- Features or behavior not explicitly requested
-- Logic that seems excessive for the stated requirements
-- Potential AI agent overreach or assumption-driven additions
-- Functionality that goes beyond the minimum viable solution
+#### 🟠 Scope & Architecture Concerns
+- Features exceeding stated requirements
+- Over-engineered solutions where simpler approaches exist
+- Missing business logic validation
+- Architectural inconsistencies with existing patterns
 
-#### 🟢 Suggestions (Nice to Have)
-- Code style improvements
-- Optimization opportunities
+#### 🟢 Optimization Opportunities  
+- Code style and formatting improvements
 - Documentation enhancements
+- Performance optimizations (non-critical)
+- Refactoring opportunities for better readability
 
-### Positive Observations
-- Highlight good practices, clean code, comprehensive tests
-- Acknowledge security-conscious implementations
-- Note performance improvements or efficient solutions
-- Recognize appropriate scope and restraint
+### Implementation Analysis
 
-### Recommendations
-- Specific actionable items with code examples where helpful
-- Priority order for addressing issues
-- Suggestions for clarifying requirements if scope seems excessive
-- Recommendations for simplifying over-engineered solutions
+#### Security Review
+- Input validation and sanitization
+- Authentication and authorization checks
+- Sensitive data handling
+- Cryptographic implementations
 
-## Implementation Guidelines
+#### Code Quality Assessment
+- Adherence to project conventions
+- Design pattern usage
+- SOLID principle compliance
+- Clean code practices
 
-- Reference the specific files and line numbers when possible
-- Provide code examples for suggested improvements
-- Consider the project's existing patterns and conventions
-- Balance thoroughness with practicality
-- Focus on meaningful issues rather than nitpicking style preferences
-- **DO NOT attempt to fix identified issues** - only document and call them out
-- Question whether each piece of functionality was actually requested or necessary
+#### Testing Coverage
+- Unit test adequacy for new code
+- Integration test requirements
+- Edge case handling
+- Mock usage and test quality
 
-## Getting Started
+### Action Items
+1. **Immediate**: Critical security and stability fixes
+2. **Pre-merge**: Important quality and functionality issues  
+3. **Follow-up**: Optimization and enhancement opportunities
+4. **Documentation**: Update requirements if scope questions arise
 
-To begin the code review:
+## Review Guidelines
 
-1. Identify the current branch and base branch
-2. Generate a comprehensive diff of all changes
-3. Analyze each changed file systematically
-4. Cross-reference changes with tests and documentation
-5. Evaluate whether the scope of changes matches stated requirements
-6. Compile findings into the structured review format
+### Analysis Approach
+- Reference specific files and line numbers for all findings
+- Provide concrete code examples for suggested improvements
+- Consider existing project patterns and conventions
+- Balance thoroughness with practical actionability
+- Focus on meaningful issues rather than stylistic preferences
+- **Analyze and document only** - do not attempt to fix identified issues
+- Question scope creep and unnecessary feature additions
+
+### Quality Standards
+- Verify alignment with business requirements
+- Check for proper error handling and edge cases
+- Evaluate security implications of all changes
+- Assess performance impact on existing functionality
+- Ensure adequate test coverage for reliability
+
+### Success Criteria
+✅ **Comprehensive**: All changed files reviewed systematically  
+✅ **Actionable**: Clear priority and specific remediation steps  
+✅ **Balanced**: Highlights both issues and good practices  
+✅ **Scoped**: Validates requirements alignment and necessity  
+
+## Execution Workflow
+
+The command will automatically:
+1. Gather git context and project configuration
+2. Analyze all changed files systematically  
+3. Cross-reference with tests and documentation
+4. Generate prioritized findings with actionable recommendations
+5. Validate scope alignment with stated requirements
+
+Begin the review by running the automated analysis steps above, then proceed with detailed examination of each changed file.

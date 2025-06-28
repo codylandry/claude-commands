@@ -1,8 +1,5 @@
 ---
-allowed-tools: Bash(jira *), Bash(git *), Read(src/**/*), Read(.gitlab/**/*), Read(.ai-workspace/**/*), Write(.ai-workspace/**/*), Glob, Grep, Task
-disallowed-tools: Bash(rm *)
 description: Creates comprehensive working documents for JIRA ticket implementation with structured planning
-timeout: 300
 ---
 
 # Working Process
@@ -26,12 +23,6 @@ Examples:
 - `/plan_work ABC-123` - Uses JIRA ticket ABC-123
 - `/plan_work Add user authentication with OAuth2 support` - Creates plan for described task
 - `/plan_work` - Extracts ticket from branch name like "feature/ABC-123-user-auth"
-
-## Context Loading Strategy
-@.gitlab/merge_request_templates/Default.md for PR template
-@README.md for project overview and setup instructions
-@Makefile or build configuration for available commands
-@project configuration files for dependencies and build setup
 
 ## Requirements Gathering
 

@@ -1,3 +1,8 @@
+---
+allowed-tools: [Bash, Read, Grep]
+description: Generate contextual commit messages by analyzing git changes and project context
+---
+
 # Create Commit Message Command
 
 You are an expert at creating meaningful, contextual commit messages by analyzing changes and understanding the work being done. Your goal is to analyze the current state and create a commit message that clearly communicates the purpose and context of the changes.
@@ -6,25 +11,40 @@ You are an expert at creating meaningful, contextual commit messages by analyzin
 
 ## Information Gathering Process
 
-1. **Analyze Current State**
-   - Get current branch name (may contain ticket number)
-   - Check git status for staged/unstaged changes
-   - Generate branch diff (`git diff main...HEAD` or similar)
-   - Generate working tree diff (`git diff` and `git diff --staged`)
+### 1. Current Git State Analysis
+```
+Current branch: !git branch --show-current
+Git status: !git status --porcelain
+Staged changes: !git diff --cached --name-only
+Working changes: !git diff --name-only
+Branch commits: !git log --oneline main..HEAD
+```
 
-2. **Gather Context (Efficiently)**
-   - Look for current working documentation files (WORKING_ON.md, TODO.md, etc.)
-   - Extract ticket number from branch name if present
-   - **Smart Context Gathering**: If working documentation already contains comprehensive ticket details and context, use that information instead of fetching ticket directly
-   - Only fetch Jira ticket information if working docs are missing or lack sufficient context
-   - Only look for parent/linked tickets if current context is insufficient to understand the change purpose
-   - Check recent commit messages for patterns and style
+### 2. Smart Context Discovery
+**Working Documentation (Check First):**
+- @.ai-workspace/*/working-doc.md
+- @WORKING_ON.md
+- @TODO.md
+- @CLAUDE.md
 
-3. **Understand Intent**
-   - Analyze the diffs to understand what changed
-   - Consider the context from documentation and tickets
-   - Identify the business/technical purpose behind the changes
-   - If intent is unclear, ASK the user to clarify the purpose
+**Recent Commit Style:**
+!git log --oneline -5 --pretty=format:"%s"
+
+**Project Configuration:**
+@package.json
+@pyproject.toml
+
+### 3. Efficient Context Gathering Strategy
+- Extract ticket number from branch name: !git branch --show-current | grep -o '[A-Z]\+-[0-9]\+'
+- **Smart Context Gathering**: If working documentation already contains comprehensive ticket details and context, use that information instead of fetching ticket directly
+- Only fetch Jira ticket information if working docs are missing or lack sufficient context
+- Only look for parent/linked tickets if current context is insufficient to understand the change purpose
+
+### 4. Intent Analysis
+- Analyze the diffs to understand what changed
+- Consider the context from documentation and tickets
+- Identify the business/technical purpose behind the changes
+- If intent is unclear, ASK the user to clarify the purpose
 
 ## Commit Message Format
 
@@ -50,31 +70,37 @@ Include relevant details that future developers would find helpful.
 - Reference related tickets if they provide important context
 - **IMPORTANT**: Do NOT mention the current 'step' being worked on or reference internal working process documents (like plan_work.md, execute_step.md) as these are internal workflow tools not shared with others
 
-## Implementation Process
+## Implementation Workflow
 
-1. **Gather Information (Efficiently)**
-   - Run git commands to understand current state
-   - Search for working documentation first
-   - Extract ticket information only if working docs are insufficient
-   - Read recent commits for style guidance
+### Step 1: Automatic Context Collection
+Execute all dynamic content commands to gather comprehensive context:
+- Git state analysis (branch, status, diffs)
+- Working documentation review
+- Recent commit pattern analysis
+- Project configuration inspection
 
-2. **Analyze Changes**
-   - Review all diffs comprehensively
-   - Identify the core purpose of the changes
-   - Consider how changes fit into larger work effort
-   - Note any breaking changes or important technical details
+### Step 2: Smart Analysis
+- Parse ticket number from branch: !git branch --show-current | grep -o '[A-Z]\+-[0-9]\+'
+- Determine if additional ticket lookup is needed based on working docs
+- Identify change scope: feature/fix/refactor/docs/test
+- Assess business impact and technical significance
 
-3. **Craft Message**
-   - Write clear, contextual commit message
-   - Include ticket number if available
-   - Provide business/technical context
-   - Explain the "why" behind the changes
-   - Copy the final message to clipboard using `echo "message" | pbcopy`
+### Step 3: Message Generation
+Generate commit message following this priority:
+1. **Ticket Context** (if available): `[TICKET-123] Description`
+2. **Change Type** classification (feat/fix/docs/refactor/test)
+3. **Business Impact** explanation in body
+4. **Technical Details** if complex changes
 
-4. **Validate Understanding**
-   - If the intent of changes is unclear from context, ask user
-   - Confirm the commit message accurately reflects the work
-   - Ensure message follows project conventions
+### Step 4: Delivery
+Copy final message to clipboard: `echo "commit message" | pbcopy`
+
+**Quality Checklist:**
+- [ ] Ticket number included (if applicable)
+- [ ] Clear, imperative description (50-72 chars)
+- [ ] Business context explained
+- [ ] Technical details noted (if complex)
+- [ ] Follows project conventions
 
 ## Context Sources Priority (Efficient Approach)
 
@@ -87,38 +113,70 @@ Include relevant details that future developers would find helpful.
 
 **Efficiency Rule**: If working documentation contains comprehensive ticket details, description, and context, skip direct ticket lookup. Only fetch additional ticket information when the working docs are insufficient to understand the change purpose.
 
-## Examples
+## Real-World Examples
 
-### Simple Feature Addition
+### Feature Implementation
 ```
 [PROJ-123] Add user preference toggle for dark mode
 
 Implements the dark mode toggle requested in the user settings mockups.
 Toggle state is persisted to localStorage and applied on page load.
+
+- Added DarkModeToggle component with persistent state
+- Updated theme provider to support dynamic switching
+- Included accessibility features for screen readers
 ```
 
-### Bug Fix
+### Bug Fix with Context
 ```
 [PROJ-456] Fix memory leak in WebSocket connection handling
 
 Resolves issue where WebSocket connections weren't properly cleaned up
-on component unmount, causing memory usage to grow over time.
+on component unmount, causing memory usage to grow over time in the
+chat feature during extended sessions.
+
+- Added proper cleanup in useEffect return function
+- Implemented connection pooling to prevent duplicate connections
+- Added debug logging for connection lifecycle tracking
 ```
 
-### Refactoring
+### Strategic Refactoring
 ```
 [PROJ-789] Extract payment processing into separate service
 
 Refactors payment logic from checkout component into dedicated service
-to prepare for upcoming multi-payment-provider feature work.
+to prepare for upcoming multi-payment-provider feature work in Q2.
+
+- Moved payment validation to PaymentService class
+- Created abstract PaymentProvider interface
+- Updated checkout flow to use new service layer
+- Maintained backward compatibility for existing integrations
 ```
 
-## Getting Started
+### Documentation Update
+```
+[PROJ-101] Update API documentation for new authentication flow
 
-To create a commit message:
+Documents the OAuth 2.0 + PKCE authentication changes implemented
+in PROJ-95, including migration guide for existing integrations.
 
-1. Analyze the current git state and gather all available context
-2. Research any tickets or documentation referenced
-3. Understand the intent and purpose of the changes
-4. Craft a meaningful commit message that future developers will understand
-5. If intent is unclear, ask the user for clarification before proceeding
+- Added authentication flow diagrams
+- Included code samples for common frameworks
+- Created migration checklist for existing users
+```
+
+## Usage Instructions
+
+This command automatically:
+
+1. **Gathers Context** - Executes all dynamic content commands to collect git state, working documentation, and project context
+2. **Analyzes Changes** - Reviews diffs and identifies the purpose and scope of modifications
+3. **Generates Message** - Creates a structured commit message following project conventions
+4. **Delivers Result** - Copies the final message to clipboard using `pbcopy`
+
+**When to Ask User for Clarification:**
+- Intent of changes cannot be determined from diffs and documentation
+- Multiple possible interpretations of the change purpose
+- Complex architectural decisions need business context
+- Working documentation is missing or incomplete
+
