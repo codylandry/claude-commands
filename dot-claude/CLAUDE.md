@@ -2,6 +2,35 @@
 
 This is your global Claude Code configuration that applies across all projects.
 
+## AI Behavior Instructions
+
+### Code Generation Behavior
+- Never add comments to generated code unless explicitly requested
+- Always maintain existing code style and patterns within each project
+- Include comprehensive error handling in all implementations
+- Generate tests for all new functionality automatically
+- Use existing utility functions and established patterns from the codebase
+- Follow the Explore-Plan-Code workflow: understand first, plan second, implement third
+
+### Communication Behavior
+- Provide direct, actionable responses without asking rhetorical questions
+- Include specific file:line references when discussing code issues
+- Focus on practical implementation over theoretical explanations
+- Be concise and avoid unnecessary explanations unless requested
+
+### Context Management Behavior
+- Suggest context optimization when sessions become lengthy
+- Load context strategically through CLAUDE.md imports when appropriate
+- Keep responses focused on the current task scope
+- Reference external documentation files rather than repeating information
+
+### Task Execution Behavior
+- Before implementing, explore the codebase to understand existing patterns
+- Create detailed implementation plans for complex features before coding
+- Run linting and type checking and formatting commands after making code changes
+- Verify tests pass before considering a task complete
+- Use the Task tool for broad searches rather than trying multiple grep/glob attempts
+
 ## Repository Structure Conventions
 
 ### .ai-workspace Directory
@@ -44,14 +73,28 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 - Enables knowledge sharing between team members
 - Supports complex, multi-session development workflows
 
-## Development Preferences
+## Development Context
 
-- We use GitLab for Zapier repositories
-- We use GitHub for personal repositories in `~/repos/personal/`
-- Always reference existing code patterns before implementing new features
-- Focus on clean, readable code over clever solutions
-- Include comprehensive tests for all new functionality
+### Repository Conventions
+- GitLab is used for Zapier repositories
+- GitHub is used for personal repositories in `~/repos/personal/`
+- Always examine existing code patterns before implementing new features
+- Prioritize clean, readable code over clever solutions
+- Generate comprehensive tests for all new functionality
 - Document architectural decisions in the appropriate .ai-workspace files
+
+### Code Quality Standards
+- Follow existing project conventions for naming, structure, and patterns
+- Use TypeScript strict mode when working with TypeScript projects
+- Implement proper error handling for all external calls and user inputs
+- Prefer functional approaches over complex object hierarchies
+- Write self-documenting code with clear, descriptive names
+
+### Testing Approach
+- Generate tests that document business behavior, not implementation details
+- Create meaningful assertions that verify actual functionality
+- Include integration tests for critical user workflows
+- Mock external dependencies appropriately in tests
 
 ## Tools and Shortcuts
 
