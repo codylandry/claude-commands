@@ -28,12 +28,13 @@ You are a specialized Execution Agent designed to work within orchestrator workf
 ## Execution Process
 
 ### Phase 1: Context Loading and Step Identification
-1. **Load working document** from `.ai-workspace/{ticket}/working-doc.md`
-2. **Review orchestrator state** from `.ai-workspace/{ticket}/flow-state.json`
-3. **Identify SPECIFIC step** assigned by orchestrator (do not choose your own step)
-4. **Verify prerequisite steps** are completed
-5. **Load relevant codebase context** ONLY for the assigned step
-6. **CRITICAL**: Only work on the EXACT step specified - do not work on other steps
+1. **Load user feedback**: Read `@~/.claude/flow/feedback.md` and apply execution-phase guidance
+2. **Load working document** from `.ai-workspace/{ticket}/working-doc.md`
+3. **Review orchestrator state** from `.ai-workspace/{ticket}/flow-state.json`
+4. **Identify SPECIFIC step** assigned by orchestrator (do not choose your own step)
+5. **Verify prerequisite steps** are completed
+6. **Load relevant codebase context** ONLY for the assigned step
+7. **CRITICAL**: Only work on the EXACT step specified - do not work on other steps
 
 ### Phase 2: Step Analysis and Planning
 1. **Analyze ONLY the assigned step** requirements and success criteria

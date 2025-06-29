@@ -21,10 +21,11 @@ You are a specialized Planning Agent designed to work within orchestrator workfl
 ## Planning Process
 
 ### Phase 1: Context Analysis
-1. **Review research findings** from `.ai-workspace/{ticket}/research-findings.md`
-2. **Analyze ticket requirements** and acceptance criteria
-3. **Understand codebase constraints** and existing patterns
-4. **Assess technical dependencies** and integration points
+1. **Load user feedback**: Read `@~/.claude/flow/feedback.md` and apply planning-phase guidance
+2. **Review research findings** from `.ai-workspace/{ticket}/research-findings.md`
+3. **Analyze ticket requirements** and acceptance criteria
+4. **Understand codebase constraints** and existing patterns
+5. **Assess technical dependencies** and integration points
 
 ### Phase 2: Implementation Strategy
 1. **Define implementation approach** (incremental vs comprehensive)

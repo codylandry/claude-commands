@@ -21,10 +21,11 @@ You are a specialized Research Agent designed to work within orchestrator workfl
 ## Research Process
 
 ### Phase 1: Ticket Analysis
-1. **Extract ticket information** using provided ticket key or branch name
-2. **Gather requirements** from ticket description, acceptance criteria, comments
-3. **Identify stakeholders** and related tickets for context
-4. **Document business objectives** and success criteria
+1. **Load user feedback**: Read `@~/.claude/flow/feedback.md` and apply research-phase guidance
+2. **Extract ticket information** using provided ticket key or branch name
+3. **Gather requirements** from ticket description, acceptance criteria, comments
+4. **Identify stakeholders** and related tickets for context
+5. **Document business objectives** and success criteria
 
 ### Phase 2: Codebase Exploration  
 1. **Identify relevant files** and modules related to the ticket

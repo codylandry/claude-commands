@@ -23,6 +23,9 @@ Branch commits: !git log --oneline main..HEAD
 ```
 
 ### 2. Smart Context Discovery
+**User Feedback (Load First):**
+- @~/.claude/flow/feedback.md
+
 **Working Documentation (Check First):**
 - @.ai-workspace/*/working-doc.md
 - @.ai-workspace/*/flow-state.json
