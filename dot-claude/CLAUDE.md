@@ -43,12 +43,14 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 .ai-workspace/
 ├── TICKET-123/
 │   ├── working-doc.md          # Main implementation plan and progress tracking
-│   ├── deep-research.md        # Detailed research findings and analysis
+│   ├── research-findings.md    # Detailed research findings and analysis
 │   ├── implementation-notes.md # Implementation-specific decisions and patterns
-│   └── analysis.md            # Code analysis and architectural insights
+│   ├── analysis.md            # Code analysis and architectural insights
+│   └── flow-state.json        # Flow orchestration state and progress tracking
 └── TICKET-456/
     ├── working-doc.md
-    └── research-findings.md
+    ├── research-findings.md
+    └── flow-state.json
 ```
 
 #### Usage Guidelines
@@ -57,21 +59,42 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 
 **Document Types**:
 - **working-doc.md**: Core planning document with implementation steps, requirements, and progress tracking
-- **deep-research.md**: Comprehensive research outputs from the deep_research command
+- **research-findings.md**: Comprehensive research outputs from the flow research agent
 - **implementation-notes.md**: Technical decisions, patterns discovered, and implementation-specific insights
 - **analysis.md**: Code analysis, architecture reviews, and system understanding
+- **flow-state.json**: Flow orchestration state tracking phases, agent history, and workflow progress
 
 **AI Command Integration**: 
-- The `plan_work` command creates working documents in this structure
-- The `execute_step` command reads and updates working documents here
-- The `deep_research` command outputs detailed findings to research documents
-- The `act_on_mr_comments` command references working documents for context
+- The `flow:start` command orchestrates complete development workflows using specialized agents
+- The `flow/agents/research` command produces comprehensive research findings and analysis
+- The `flow/agents/planning` command creates detailed implementation plans and working documents
+- The `flow/agents/execution` command executes specific implementation steps from working documents
+- The `flow/agents/validation` command performs quality assurance and validation
+- The `flow/agents/commit` command creates commits at workflow checkpoints
+- The `flow/agents/state_manager` command tracks workflow progress and state
+
+**Flow-Based Workflow Approach**:
+
+The flow system provides a structured, phase-based approach to development:
+
+1. **Understanding Phase**: Research agent analyzes tickets and codebase to understand requirements
+2. **Planning Phase**: Planning agent creates detailed implementation plans with step-by-step breakdowns
+3. **Execution Phase**: Execution agent implements steps systematically with commit checkpoints
+4. **Integration Phase**: Validation agent ensures quality and prepares for merge requests
+
+Each phase includes:
+- User checkpoints for approval before proceeding
+- State tracking via flow-state.json for workflow continuity
+- Specialized agents optimized for specific tasks
+- Automatic commit creation at logical checkpoints
 
 **Benefits**:
 - Maintains context across development sessions
 - Provides clear audit trail of AI-assisted development
 - Enables knowledge sharing between team members
 - Supports complex, multi-session development workflows
+- Ensures systematic, quality-driven development approach
+- Enables rollback and recovery at any phase
 
 ## Development Context
 
