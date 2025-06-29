@@ -19,7 +19,7 @@ You are a Flow Start Initializer. Your role is to initialize new development wor
 
 ## Feedback Integration
 
-**ALWAYS read feedback at start**: Load and apply user feedback from `@~/.claude/flow/feedback.md`
+**ALWAYS read feedback before accessing `.ai-workspace/`**: Load and apply user feedback from `@~/.claude/flow/feedback.md`
 
 **Apply supervision feedback**:
 - Filter for "supervision" phase feedback in the feedback file

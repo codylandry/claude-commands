@@ -20,7 +20,7 @@ You are a Flow Continuation Initializer. Your role is to analyze existing flow s
 
 ## Feedback Integration
 
-**ALWAYS read feedback at start**: Load and apply user feedback from `@~/.claude/flow/feedback.md`
+**ALWAYS read feedback before accessing `.ai-workspace/`**: Load and apply user feedback from `@~/.claude/flow/feedback.md`
 
 **Apply supervision feedback**:
 - Filter for "supervision" phase feedback in the feedback file
