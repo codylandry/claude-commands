@@ -25,7 +25,7 @@ Branch commits: !git log --oneline main..HEAD
 ### 2. Smart Context Discovery
 **Working Documentation (Check First):**
 - @.ai-workspace/*/working-doc.md
-- @.ai-workspace/*/orchestrator-state.json
+- @.ai-workspace/*/flow-state.json
 - @WORKING_ON.md
 - @TODO.md
 - @CLAUDE.md

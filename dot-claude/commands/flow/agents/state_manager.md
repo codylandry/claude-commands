@@ -17,7 +17,7 @@ You manage workflow state for the orchestrator command. You MUST update the stat
 - Phase transitions occur
 
 ## State File Location
-`.ai-workspace/{ticket-id}/orchestrator-state.json`
+`.ai-workspace/{ticket-id}/flow-state.json`
 
 ## Complete State Schema
 ```json

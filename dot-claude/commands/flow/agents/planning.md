@@ -77,6 +77,8 @@ Create comprehensive plan in `.ai-workspace/{ticket}/working-doc.md`:
 - End-to-end tests for critical user workflows
 - Performance testing if applicable
 - Security validation for sensitive operations
+- **Test Execution**: Run only applicable tests for each step to avoid long test suite delays
+- **Iteration Requirement**: Each step must iterate on test failures until all applicable tests pass
 
 ### Security & Performance Considerations
 - Input validation and sanitization requirements
@@ -94,17 +96,19 @@ Example structure:
   - b. [ ] Set up basic component structure
   - c. [ ] Implement core business logic
   - d. [ ] Add comprehensive error handling
-  - e. [ ] Create unit tests for foundation
-  - f. [ ] Verify tests pass and code quality checks pass
-  - g. [ ] **COMMIT**: Foundation components implemented
+  - e. [ ] Create unit tests for foundation components
+  - f. [ ] Run applicable tests and iterate until all pass (focus on unit tests for new models/logic)
+  - g. [ ] Run code quality checks (linting, type checking) and fix any issues
+  - h. [ ] **COMMIT**: Foundation components implemented
 
 - 2. [ ] Implement core functionality
   - a. [ ] Build primary feature implementation
   - b. [ ] Add input validation and security measures
   - c. [ ] Implement API endpoints or interface methods
-  - d. [ ] Create integration tests
-  - e. [ ] Verify all tests pass and quality checks pass
-  - f. [ ] **COMMIT**: Core functionality complete
+  - d. [ ] Create integration tests for new endpoints/interfaces
+  - e. [ ] Run applicable tests and iterate until all pass (focus on integration tests for new functionality)
+  - f. [ ] Run code quality checks and fix any issues
+  - g. [ ] **COMMIT**: Core functionality complete
 
 {continue_with_remaining_steps}
 
@@ -192,11 +196,15 @@ Update orchestrator state with planning completion:
 - **Dependencies**: Clear ordering and prerequisite relationships
 
 ### Quality Assurance Planning
-- **Test Strategy**: Comprehensive coverage approach
+- **Test Strategy**: Comprehensive coverage approach with targeted test execution per step
 - **Validation Points**: How to verify each step completion
 - **Performance Criteria**: Measurable benchmarks
 - **Security Requirements**: Specific security validations
 - **Documentation Needs**: What docs need updates
+- **Test Scope Guidelines**: 
+  - Run only tests relevant to current step changes (e.g., model tests for model changes)
+  - Avoid full test suite execution unless explicitly required for integration validation
+  - Iterate on failures until all applicable tests pass before proceeding
 
 ## Error Handling
 
