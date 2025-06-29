@@ -66,12 +66,12 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 
 **AI Command Integration**: 
 - The `flow:start` command orchestrates complete development workflows using specialized agents
-- The `flow/agents/research` command produces comprehensive research findings and analysis
-- The `flow/agents/planning` command creates detailed implementation plans and working documents
-- The `flow/agents/execution` command executes specific implementation steps from working documents
-- The `flow/agents/validation` command performs quality assurance and validation
-- The `flow/agents/commit` command creates commits at workflow checkpoints
-- The `flow/agents/state_manager` command tracks workflow progress and state
+- The `agents/flow/research` agent produces comprehensive research findings and analysis
+- The `agents/flow/planning` agent creates detailed implementation plans and working documents
+- The `agents/flow/execution` agent executes specific implementation steps from working documents
+- The `agents/flow/validation` agent performs quality assurance and validation
+- The `agents/flow/commit` agent creates commits at workflow checkpoints
+- The `agents/flow/state_manager` agent tracks workflow progress and state
 
 **Flow-Based Workflow Approach**:
 

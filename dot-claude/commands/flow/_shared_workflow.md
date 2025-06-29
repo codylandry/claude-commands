@@ -17,36 +17,36 @@ This is shared coordination logic used by both `start-flow` and `continue-flow` 
 
 ## Available Flow Agents to Delegate
 
-- `flow/agents/research` - Comprehensive research and analysis
-- `flow/agents/planning` - Create implementation plans and working documents
-- `flow/agents/execution` - Implement specific steps from working documents
-- `flow/agents/validation` - Quality assurance and validation
-- `flow/agents/commit` - Create commits at checkpoints
-- `flow/agents/state_manager` - Manage workflow state
+- `agents/flow/research` - Comprehensive research and analysis
+- `agents/flow/planning` - Create implementation plans and working documents
+- `agents/flow/execution` - Implement specific steps from working documents
+- `agents/flow/validation` - Quality assurance and validation
+- `agents/flow/commit` - Create commits at checkpoints
+- `agents/flow/state_manager` - Manage workflow state
 - `create_mr_description` - Generate MR descriptions (uses root command)
 
 ## Workflow Pattern
 
 **Phase 1: Understanding**
-1. Use Task tool to delegate to `flow/agents/research` for ticket analysis
-2. Use Task tool to delegate to `flow/agents/state_manager` to update state with research results
+1. Use Task tool to delegate to `agents/flow/research` for ticket analysis
+2. Use Task tool to delegate to `agents/flow/state_manager` to update state with research results
 3. **STOP**: Ask user to review research findings before proceeding
 
 **Phase 2: Planning** 
-1. Use Task tool to delegate to `flow/agents/planning` for implementation plan
-2. Use Task tool to delegate to `flow/agents/state_manager` to update state with planning results
+1. Use Task tool to delegate to `agents/flow/planning` for implementation plan
+2. Use Task tool to delegate to `agents/flow/state_manager` to update state with planning results
 3. **STOP**: Ask user to review implementation plan before proceeding
 
 **Phase 3: Execution**
-1. Use Task tool to delegate to `flow/agents/execution` for each implementation step
-2. Use Task tool to delegate to `flow/agents/state_manager` to update state after each step
-3. Use Task tool to delegate to `flow/agents/commit` after significant progress
+1. Use Task tool to delegate to `agents/flow/execution` for each implementation step
+2. Use Task tool to delegate to `agents/flow/state_manager` to update state after each step
+3. Use Task tool to delegate to `agents/flow/commit` after significant progress
 4. **STOP**: Ask user to review progress and commits before continuing
 
 **Phase 4: Integration**
-1. Use Task tool to delegate to `flow/agents/validation` for final validation
+1. Use Task tool to delegate to `agents/flow/validation` for final validation
 2. Use Task tool to delegate to `create_mr_description` for documentation
-3. Use Task tool to delegate to `flow/agents/state_manager` to update state with integration results
+3. Use Task tool to delegate to `agents/flow/state_manager` to update state with integration results
 4. **STOP**: Ask user to review before MR creation
 
 ## State Management
@@ -85,15 +85,15 @@ ALWAYS update `.ai-workspace/{ticket}/flow-state.json` after EVERY delegation:
 
 **Example Delegations:**
 ```
-Research: "First read your command file: @~/.claude/commands/flow/agents/research.md - Follow those instructions exactly. Your specific task: Analyze JIRA ticket PROJ-123 and explore the codebase to understand requirements and existing patterns. Produce comprehensive research findings."
+Research: "First read your command file: @~/.claude/agents/flow/research.md - Follow those instructions exactly. Your specific task: Analyze JIRA ticket PROJ-123 and explore the codebase to understand requirements and existing patterns. Produce comprehensive research findings."
 
-Planning: "First read your command file: @~/.claude/commands/flow/agents/planning.md - Follow those instructions exactly. Your specific task: Create a detailed implementation plan based on the research findings. Break down the work into manageable steps with commit checkpoints."
+Planning: "First read your command file: @~/.claude/agents/flow/planning.md - Follow those instructions exactly. Your specific task: Create a detailed implementation plan based on the research findings. Break down the work into manageable steps with commit checkpoints."
 
-Execution: "First read your command file: @~/.claude/commands/flow/agents/execution.md - Follow those instructions exactly. Your specific task: Implement step 3 from the working document: 'Add user authentication middleware'. Follow established patterns and ensure all tests pass."
+Execution: "First read your command file: @~/.claude/agents/flow/execution.md - Follow those instructions exactly. Your specific task: Implement step 3 from the working document: 'Add user authentication middleware'. Follow established patterns and ensure all tests pass."
 
-Commit: "First read your command file: @~/.claude/commands/flow/agents/commit.md - Follow those instructions exactly. Your specific task: Create a commit for the authentication middleware implementation. Analyze changes and generate appropriate commit message."
+Commit: "First read your command file: @~/.claude/agents/flow/commit.md - Follow those instructions exactly. Your specific task: Create a commit for the authentication middleware implementation. Analyze changes and generate appropriate commit message."
 
-Validation: "First read your command file: @~/.claude/commands/flow/agents/validation.md - Follow those instructions exactly. Your specific task: Perform comprehensive quality validation of all changes. Check security, performance, and test coverage."
+Validation: "First read your command file: @~/.claude/agents/flow/validation.md - Follow those instructions exactly. Your specific task: Perform comprehensive quality validation of all changes. Check security, performance, and test coverage."
 ```
 
 ## User Checkpoint Protocol
