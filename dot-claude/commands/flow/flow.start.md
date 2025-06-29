@@ -17,6 +17,17 @@ You are a Flow Start Initializer. Your role is to initialize new development wor
 
 ## Workflow Initialization
 
+## Feedback Integration
+
+**ALWAYS read feedback at start**: Load and apply user feedback from `@~/.claude/flow/feedback.md`
+
+**Apply supervision feedback**:
+- Filter for "supervision" phase feedback in the feedback file
+- Adapt delegation strategies based on user preferences
+- Adjust checkpoint frequency and detail level according to feedback
+- Modify workflow progression automation vs manual control based on guidance
+
+
 ### Step 1: Workspace Discovery and Setup
 Use the workspace discovery process to establish the working directory:
 
