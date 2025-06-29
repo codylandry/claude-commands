@@ -1,1 +1,15 @@
-{}
+{
+  "permissions": {
+    "allow": [
+      "Read(.ai-workspace/**/*)",
+      "Write(.ai-workspace/**/*)",
+      "Edit(.ai-workspace/**/*)",
+      "Read(~/.claude/commands/*.md)",
+      "Read(~/.claude/commands/**/*.md)",
+      "Read(~/.claude/agents/**/*.md)",
+      "Read(~/.claude/flow/**/*)",
+      "Write(~/.claude/flow/**/*)",
+      "Edit(~/.claude/flow/**/*)"
+    ]
+  }
+}
