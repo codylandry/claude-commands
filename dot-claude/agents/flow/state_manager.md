@@ -23,7 +23,7 @@ You manage workflow state for the orchestrator command. You MUST update the stat
 ```json
 {
   "workflow_id": "TICKET-123",
-  "phase": "understanding|planning|execution|integration|complete", 
+  "phase": "understanding|planning|coordination|execution|integration|complete", 
   "started_at": "2025-06-29T10:30:00Z",
   "updated_at": "2025-06-29T11:00:00Z",
   "current_step": "execute_step_3",
