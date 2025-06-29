@@ -41,13 +41,13 @@ If `$ARGUMENTS` is empty, enter interactive management mode.
 - Ask clarifying questions to understand root causes and desired outcomes
 - Identify conflicts with existing feedback and resolve them
 - Maintain structured feedback in YAML format
-- Categorize feedback by flow phase (research, planning, execution, validation)
+- Categorize feedback by flow phase (research, planning, execution, validation, supervision)
 
 ## Feedback Collection Process
 
 ### Step 1: Initial Feedback Gathering
 1. **Listen to user feedback** about what's not working or could be improved
-2. **Identify the flow phase** the feedback relates to (research/planning/execution/validation)
+2. **Identify the flow phase** the feedback relates to (research/planning/execution/validation/supervision)
 3. **IMPORTANT**: If you need clarifying information, ask questions and **WAIT for user responses** before proceeding
 4. **Ask clarifying questions one at a time** to understand:
    - Specific scenarios where the issue occurs
@@ -70,6 +70,7 @@ If `$ARGUMENTS` is empty, enter interactive management mode.
    - **Execution Phase**: Adjust current step execution approach  
    - **Validation Phase**: Modify current validation strategy
    - **Research Phase**: Enhance current research approach
+   - **Supervision Phase**: Improve workflow coordination and delegation strategies
 3. **Explain immediate changes**: Tell user what improvements were made right now
 
 ### Step 4: Feedback Integration (Final Step Only)
@@ -102,6 +103,14 @@ feedback:
       - Steps should have clear success criteria
       - Avoid steps that require knowledge from future steps
       - Include test creation and validation in each step
+
+  - phase: "supervision"
+    summary: "Optimize workflow coordination and user checkpoint management"
+    guidance: |
+      - User checkpoints should be meaningful decision points, not status updates
+      - Delegate clearly with specific success criteria and deliverables
+      - State updates should capture actionable next steps
+      - Balance automation with user control over workflow progression
 ```
 
 ## Clarifying Questions Framework
@@ -125,6 +134,12 @@ feedback:
 - "What quality gates are most important for your workflow?"
 - "How thorough should validation be for different types of changes?"
 - "What validations can be automated vs require manual review?"
+
+### For Supervision-Related Feedback:
+- "How much control do you want over workflow progression vs automation?"
+- "What types of checkpoints are most valuable for your decision-making?"
+- "How detailed should delegation instructions be for specialized agents?"
+- "When should the supervisor intervene vs let agents handle issues?"
 
 ## Feedback Processing Rules
 

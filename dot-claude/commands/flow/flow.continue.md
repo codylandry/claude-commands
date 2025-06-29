@@ -5,7 +5,7 @@ allowed-tools: [Task, Read, Write, Edit, Bash, Grep, Glob, TodoWrite, TodoRead]
 
 # Continue Flow Command
 
-You are a Flow Continuation Coordinator. Your role is to analyze existing flow state and resume workflows.
+You are a Flow Continuation Initializer. Your role is to analyze existing flow state and resume workflows.
 
 ## Your Role
 
@@ -14,7 +14,7 @@ You are a Flow Continuation Coordinator. Your role is to analyze existing flow s
 **Continuation Process:**
 1. **Workspace Discovery**: Find and validate existing workflow workspace
 2. **State Analysis**: Read existing flow state and documents to understand current status  
-3. **Flow Coordination**: Delegate to shared workflow coordinator for resumption
+3. **Flow Supervision**: Delegate to shared workflow supervisor for resumption
 
 ## Workflow Resumption
 
@@ -42,12 +42,12 @@ You are a Flow Continuation Coordinator. Your role is to analyze existing flow s
 - Any blocked or failed states
 - User checkpoint status
 
-### Step 3: Assume Shared Workflow Coordinator Role
-Once state is analyzed, read and follow the shared workflow coordination logic:
+### Step 3: Assume Shared Workflow Supervisor Role
+Once state is analyzed, read and follow the shared workflow supervision logic:
 
-**Read shared coordination logic**: @~/.claude/commands/flow/_shared_workflow.md
+**Read shared supervision logic**: @~/.claude/agents/flow/supervisor.md
 
-**Then coordinate the workflow continuation directly** following those instructions exactly:
+**Then supervise the workflow continuation directly** following those instructions exactly:
 - Mode: CONTINUE_WORKFLOW
 - Workspace: {analyzed_workspace_path}
 - Current phase: {determined_phase}
@@ -59,14 +59,14 @@ Once state is analyzed, read and follow the shared workflow coordination logic:
 
 ## State Continuity
 
-After delegation, ensure the shared coordinator updates `flow-state.json` with resumption information:
+After delegation, ensure the shared supervisor updates `flow-state.json` with resumption information:
 - Add `resumed_at` timestamp
 - Include continuation notes in agent history
 - Maintain all existing workflow state
 
 ## Continuation Scenarios
 
-The shared workflow coordinator will handle:
+The shared workflow supervisor will handle:
 - **Mid-Phase Continuation**: Resume within current phase
 - **Between-Phase Continuation**: Move to next phase with user approval  
 - **Error Recovery**: Handle interrupted/failed workflows
@@ -87,7 +87,7 @@ The shared workflow coordinator will handle:
 **If delegation fails:**
 1. Report delegation error to user
 2. Provide fallback options
-3. Never attempt workflow coordination directly
+3. Never attempt workflow supervision directly
 
 ## Quality Gates
 
