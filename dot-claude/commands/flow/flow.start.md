@@ -40,8 +40,20 @@ Use the workspace discovery process to establish the working directory:
 5. **Validate choice**: If multiple exist, ask user which to use
 6. **Use consistent path**: Store and use same workspace throughout workflow
 
-### Step 2: Assume Shared Workflow Supervisor Role
-Once workspace is established, read and follow the shared workflow supervision logic:
+### Step 2: Initialize Enhanced State Tracking
+Before delegating to supervisor, initialize the enhanced state file:
+
+**Initialize workflow state**: Use Task tool to delegate to `@~/.claude/agents/flow/state_manager.md` with command:
+```
+initialize_workflow {
+  "workflow_id": "{workspace_name}",
+  "title": "{task_description}",  
+  "workspace_path": "{established_workspace_path}"
+}
+```
+
+### Step 3: Assume Shared Workflow Supervisor Role
+Once workspace and state are established, read and follow the shared workflow supervision logic:
 
 **Read shared supervision logic**: @~/.claude/agents/flow/supervisor.md
 
@@ -50,7 +62,7 @@ Once workspace is established, read and follow the shared workflow supervision l
 - Workspace: {established_workspace_path} 
 - Task/Ticket: {user_provided_task_or_ticket}
 - Start from Phase 1 (Understanding)
-- Follow all delegation protocols, user checkpoints, and state management from the shared logic
+- Follow all delegation protocols, user checkpoints, and enhanced state management from the shared logic
 
 ## Error Handling
 

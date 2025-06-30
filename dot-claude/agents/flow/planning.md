@@ -39,6 +39,12 @@ You are a specialized Planning Agent designed to work within orchestrator workfl
 3. **Plan commit strategy** for checkpoints
 4. **Design rollback procedures** if needed
 
+### Phase 4: State Management and Milestone Planning
+1. **Update orchestrator state** with planning completion using Task tool to delegate to `agents/flow/state_manager`
+2. **Initialize milestone tracking** based on planned implementation steps
+3. **Set up progress tracking** for the execution phase
+4. **Estimate completion timeline** based on step complexity
+
 ## Output Format
 
 ### Working Document Creation
@@ -166,24 +172,35 @@ Example structure:
 ```
 
 ### State Update for Orchestrator
-Update orchestrator state with planning completion:
+Update orchestrator state with planning completion using Task tool to delegate to `agents/flow/state_manager`:
+
+**Required state updates:**
+1. `update_completion` with planning phase results
+2. `update_milestone "Implementation plan approved"` when user approves
+3. Initialize milestone tracking for all planned implementation steps
+4. Set estimated completion timeline based on step complexity
+
+**State data to provide:**
 ```json
 {
   "agent": "planning_agent",
-  "task": "create_implementation_plan",
-  "status": "completed", 
+  "task": "create_implementation_plan",  
+  "status": "completed",
   "timestamp": "2025-06-29T11:00:00Z",
   "output_summary": "Created detailed implementation plan with {number} steps. Plan includes testing strategy, quality gates, and commit checkpoints.",
   "deliverables": [
     ".ai-workspace/{ticket}/working-doc.md",
     "Step-by-step implementation plan",
     "Quality gates and success criteria",
-    "Testing and validation strategy", 
+    "Testing and validation strategy",
     "Commit checkpoint strategy"
   ],
-  "next_phase_ready": true,
-  "implementation_steps_count": "{number_of_steps}",
-  "estimated_commits": "{number_of_planned_commits}"
+  "milestones_planned": [
+    {"name": "Step 1: {description}", "estimated_duration": "30min"},
+    {"name": "Step 2: {description}", "estimated_duration": "45min"}
+  ],
+  "estimated_total_duration": "{duration_estimate}",
+  "next_phase_ready": true
 }
 ```
 
