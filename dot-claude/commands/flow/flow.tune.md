@@ -41,13 +41,13 @@ If `$ARGUMENTS` is empty, enter interactive management mode.
 - Ask clarifying questions to understand root causes and desired outcomes
 - Identify conflicts with existing feedback and resolve them
 - Maintain structured feedback in YAML format
-- Categorize feedback by flow phase (research, planning, execution, validation, supervision)
+- Categorize feedback by flow phase (research, planning, execution, validation, management, supervision)
 
 ## Feedback Collection Process
 
 ### Step 1: Initial Feedback Gathering
 1. **Listen to user feedback** about what's not working or could be improved
-2. **Identify the flow phase** the feedback relates to (research/planning/execution/validation/supervision)
+2. **Identify the flow phase** the feedback relates to (research/planning/execution/validation/management/supervision)
 3. **IMPORTANT**: If you need clarifying information, ask questions and **WAIT for user responses** before proceeding
 4. **Ask clarifying questions one at a time** to understand:
    - Specific scenarios where the issue occurs
@@ -70,7 +70,8 @@ If `$ARGUMENTS` is empty, enter interactive management mode.
    - **Execution Phase**: Adjust current step execution approach  
    - **Validation Phase**: Modify current validation strategy
    - **Research Phase**: Enhance current research approach
-   - **Supervision Phase**: Improve workflow coordination and delegation strategies
+   - **Management Phase**: Improve overall workflow coordination and skills agent selection
+   - **Supervision Phase**: Improve real-time collaboration coordination between specialist agents
 3. **Explain immediate changes**: Tell user what improvements were made right now
 
 ### Step 4: Feedback Integration (Final Step Only)
@@ -104,13 +105,22 @@ feedback:
       - Avoid steps that require knowledge from future steps
       - Include test creation and validation in each step
 
-  - phase: "supervision"
-    summary: "Optimize workflow coordination and user checkpoint management"
+  - phase: "management"
+    summary: "Skills agent selection and collaborative workflow coordination"
     guidance: |
-      - User checkpoints should be meaningful decision points, not status updates
-      - Delegate clearly with specific success criteria and deliverables
-      - State updates should capture actionable next steps
-      - Balance automation with user control over workflow progression
+      - For frontend-only changes: Use single frontend agent
+      - For API changes: Use backend + frontend + security agents
+      - For complex features: Use architect + relevant specialists + supervisor
+      - For security-critical changes: Always include security agent
+      - Spawn supervisor agent when 3+ specialists are collaborating
+
+  - phase: "supervision"
+    summary: "Real-time collaboration coordination between specialist agents"
+    guidance: |
+      - Establish collaboration framework before agents begin work
+      - Guide specialists to iterate on each other's proposals, not just report
+      - Intervene when agents get stuck or drift from objectives
+      - Ensure all agents reach explicit consensus before concluding
 ```
 
 ## Clarifying Questions Framework
@@ -135,11 +145,17 @@ feedback:
 - "How thorough should validation be for different types of changes?"
 - "What validations can be automated vs require manual review?"
 
+### For Management-Related Feedback:
+- "Which skills agents are most/least valuable for your typical tasks?"
+- "How should the manager decide when to use collaborative vs individual agents?"
+- "What level of task complexity triggers multi-agent collaboration?"
+- "How do you prefer skills agents to be coordinated during collaborative work?"
+
 ### For Supervision-Related Feedback:
-- "How much control do you want over workflow progression vs automation?"
-- "What types of checkpoints are most valuable for your decision-making?"
-- "How detailed should delegation instructions be for specialized agents?"
-- "When should the supervisor intervene vs let agents handle issues?"
+- "How should the supervisor guide real-time collaboration between specialist agents?"
+- "When should the supervisor intervene in agent discussions vs let them work independently?"
+- "What level of detail do you want in collaborative decision-making?"
+- "How should conflicts between specialist agents be resolved?"
 
 ## Feedback Processing Rules
 
