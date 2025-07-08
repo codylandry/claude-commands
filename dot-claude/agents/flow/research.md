@@ -13,35 +13,35 @@ allowed-tools: [Task, Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch]
 flowchart TD
     A[Start Research Agent] --> B["Step 1: Read Feedback<br/>📄 Read @~/.claude/flow/feedback.md<br/>🔧 Apply research-phase guidance"]
     B --> C["Step 2: Read Agent Role<br/>📄 Read @~/.claude/agents/flow/research.md<br/>📋 Understand research responsibilities"]
-    C --> D["Step 3: Initialize Research<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Starting comprehensive ticket analysis'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Ticket analysis complete in_progress'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health healthy'"]
+    C --> D["Step 3: Initialize Research<br/>📝 Initialize working-doc.md with research phase<br/>📋 Document research progress tracking<br/>⚡ Begin comprehensive ticket analysis"]
     
     D --> E["Step 4: PHASE 1 - Ticket Analysis<br/>🎯 Extract ticket information from context<br/>📋 Gather requirements from description<br/>📝 Identify acceptance criteria<br/>👥 Identify stakeholders<br/>🎯 Document business objectives"]
     
     E --> F{Ticket information available?}
-    F -->|No| G["❌ Block research<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker No ticket information provided'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error'<br/>📋 Document missing information gaps"]
-    F -->|Yes| H["✅ Phase 1 Complete<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Exploring codebase and identifying patterns'<br/>📊 Begin Phase 2"]
+    F -->|No| G["❌ Block research<br/>📋 Document: No ticket information provided<br/>🔧 Report research cannot proceed<br/>📋 Document missing information gaps"]
+    F -->|Yes| H["✅ Phase 1 Complete<br/>📝 Update working-doc.md: Ticket analysis complete<br/>📋 Document findings and begin Phase 2<br/>📊 Begin Phase 2"]
     
     H --> I["Step 5: PHASE 2 - Codebase Exploration<br/>🔍 Use Grep/Glob to identify relevant files<br/>🏗️ Analyze existing patterns and architecture<br/>🔗 Map dependencies and integration points<br/>🧪 Assess current test coverage"]
     
     I --> J{Files identified successfully?}
-    J -->|No| K["❌ Block research<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Cannot identify relevant codebase components'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health warning'<br/>📋 Document technical barriers"]
-    J -->|Yes| L["✅ Phase 2 Complete<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Conducting technical analysis'<br/>📊 Begin Phase 3"]
+    J -->|No| K["❌ Block research<br/>📋 Document: Cannot identify relevant codebase components<br/>🔧 Report technical barriers<br/>📋 Document technical barriers"]
+    J -->|Yes| L["✅ Phase 2 Complete<br/>📝 Update working-doc.md: Codebase exploration complete<br/>📋 Document findings and begin Phase 3<br/>📊 Begin Phase 3"]
     
     L --> M["Step 6: PHASE 3 - Technical Analysis<br/>⚙️ Evaluate technical constraints<br/>🔒 Identify security considerations<br/>⚡ Assess performance implications<br/>📡 Document existing APIs affected"]
     
-    M --> N["Step 7: PHASE 4 - Risk Assessment<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Assessing risks and finalizing findings'<br/>⚠️ Identify potential risks<br/>📊 Assess scope complexity<br/>🔗 Document dependencies<br/>🔄 Evaluate rollback options"]
+    M --> N["Step 7: PHASE 4 - Risk Assessment<br/>📝 Update working-doc.md: Begin risk assessment<br/>⚠️ Identify potential risks<br/>📊 Assess scope complexity<br/>🔗 Document dependencies<br/>🔄 Evaluate rollback options"]
     
     N --> O["Step 8: Generate Research Document<br/>📄 Create .ai-workspace/{ticket}/research-findings.md<br/>📋 Include ALL required sections<br/>✅ Validate completeness"]
     
     O --> P["Research Document Must Include:<br/>📌 Ticket Analysis section<br/>📊 Requirements Summary<br/>🏗️ Codebase Analysis<br/>⚙️ Existing Patterns<br/>💻 Technical Stack<br/>🔧 Implementation Insights<br/>📈 Complexity Assessment<br/>⚙️ Technical Considerations<br/>🔗 Dependencies and Risks<br/>💡 Recommendations<br/>✅ Success Criteria"]
     
     P --> Q{Research document complete?}
-    Q -->|No| R["❌ Block research<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Unable to complete research documentation'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error'<br/>📋 Document specific issues"]
+    Q -->|No| R["❌ Block research<br/>📋 Document: Unable to complete research documentation<br/>🔧 Report documentation issues<br/>📋 Document specific issues"]
     Q -->|Yes| S["Step 9: Quality Validation<br/>✅ Verify all sections present<br/>🎯 Check findings completeness<br/>📊 Validate technical details<br/>📋 Confirm actionable insights"]
     
     S --> T{Research quality sufficient?}
     T -->|No| U["🔧 Enhance research documentation<br/>📝 Address quality gaps<br/>🎯 Improve technical detail<br/>📊 Strengthen recommendations"]
-    T -->|Yes| V["Step 10: Finalize Research<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Ticket analysis complete completed=true'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Research findings documented'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_progress'"]
+    T -->|Yes| V["Step 10: Finalize Research<br/>📝 Update working-doc.md: Research phase complete<br/>✅ Mark research findings documented<br/>📋 Update progress tracking"]
     U --> P
     
     V --> W["Step 11: Return Research Summary<br/>📋 Structured completion data:<br/>• research-findings.md path<br/>• Key findings summary<br/>• Complexity assessment (1-10)<br/>• Major risks identified<br/>• Technical recommendations<br/>• Ready for planning phase"]
@@ -188,12 +188,12 @@ flowchart TD
 - **Rollback Plan**: {if_needed}
 ```
 
-### State Manager Integration
-- Research phases: Update activity for each phase transition
-- Milestone tracking: Mark "Ticket analysis complete" when finished
-- Blocker management: Record specific research blockers
-- Quality indicators: Update health based on research completeness
-- Progress tracking: Calculate completion percentage
+### Working Document Integration
+- Research phases: Update working-doc.md progress for each phase transition
+- Progress tracking: Mark "Ticket analysis complete" when finished
+- Issue management: Record specific research blockers in working-doc.md
+- Quality indicators: Document research completeness status
+- Progress tracking: Calculate completion percentage in working-doc.md
 
 ### Search Strategy Guidelines
 - **File Discovery**: Use Glob for pattern matching (`**/*.{js,ts}`)

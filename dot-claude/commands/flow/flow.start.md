@@ -20,7 +20,7 @@ allowed-tools: [Task, Read, Write, Edit, Bash, Grep, Glob, TodoWrite, TodoRead]
    - Create workspace directory if needed
 
 3. **Start Supervisor**
-   - Task → agents/flow/supervisor
+   - Task → ~/.claude/agents/flow/supervisor
    - Pass: "Start new workflow for {ticket/task} in workspace {workspace_name}"
 
 **That's it.** The supervisor agent handles everything else following its process diagram.

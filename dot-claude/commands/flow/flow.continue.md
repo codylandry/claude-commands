@@ -18,9 +18,8 @@ Resume interrupted flow workflows by analyzing current state and continuing dire
 
 ### Step 2: Load State and Context
 **Read existing documents:**
-1. `.ai-workspace/{workspace}/flow-state.json` - Get current phase and progress
-2. `.ai-workspace/{workspace}/working-doc.md` - Load implementation plan
-3. `@~/.claude/flow/feedback.md` - Apply user feedback preferences
+1. `.ai-workspace/{workspace}/working-doc.md` - Load implementation plan and progress
+2. `@~/.claude/flow/feedback.md` - Apply user feedback preferences
 
 **Determine current status:**
 - What phase: understanding/planning/execution/integration
@@ -53,36 +52,24 @@ Resume interrupted flow workflows by analyzing current state and continuing dire
 - Prepare for merge/deployment
 - Create final commit
 
-### Step 4: Update State
-Update `.ai-workspace/{workspace}/flow-state.json`:
+### Step 4: Update Progress
+Update `.ai-workspace/{workspace}/working-doc.md`:
 - Add continuation timestamp
 - Update current phase and progress
-- Log continuation action in agent history
+- Log continuation action in workflow history
 
-## Flow State Structure
-```json
-{
-  "current_phase": "execution",
-  "last_step_completed": 3,
-  "next_step": 4,
-  "total_steps": 8,
-  "agent_history": [
-    {"agent": "research", "completed_at": "...", "status": "completed"},
-    {"agent": "planning", "completed_at": "...", "status": "completed"},
-    {"agent": "execution", "completed_at": "...", "status": "in_progress"}
-  ],
-  "blockers": [],
-  "user_checkpoints": {
-    "planning_approved": true,
-    "execution_in_progress": true
-  }
-}
-```
+## Working Document Progress Structure
+Progress tracking is maintained in the working-doc.md file with sections for:
+- Current phase (understanding/planning/execution/integration)
+- Completed steps with timestamps
+- Next steps to execute
+- Agent history and workflow checkpoints
+- Any blockers or issues encountered
 
 ## Error Recovery
 
 **If workspace doesn't exist:** List available workspaces or suggest creating new flow
-**If state file corrupted:** Ask user how to proceed (restart vs manual fix)
+**If working document corrupted:** Ask user how to proceed (restart vs manual fix)
 **If execution blocked:** Report specific blockers and ask for guidance
 
 ## Continuation Examples
@@ -95,7 +82,7 @@ Update `.ai-workspace/{workspace}/flow-state.json`:
 
 ## Quality Checks
 - [ ] Workspace exists and is readable
-- [ ] Flow state contains valid phase information  
+- [ ] Working document contains valid phase information  
 - [ ] Working document has clear next steps
 - [ ] No unresolved blockers
 

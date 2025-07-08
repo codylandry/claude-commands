@@ -19,44 +19,44 @@ flowchart TD
     E -->|No| G["🆕 Generate workspace name:<br/>• JIRA: TICKET-123 or TICKET-123-description<br/>• Ad-hoc: task-description-YYYY-MM-DD"]
     F --> H[Set workspace path for session]
     G --> H
-    H --> I["Step 4: Initialize State Manager<br/>🔧 Task → agents/flow/state_manager<br/>📝 'Initialize workflow state for {workspace}'<br/>⚡ Create flow-state.json with initial schema"]
+    H --> I["Step 4: Initialize Working Document<br/>📄 Create working-doc.md with initial structure<br/>📝 Set up progress tracking sections<br/>⚡ Initialize feature tracking framework"]
     I --> J{State initialized successfully?}
     J -->|No| K["❌ Report error to user and stop<br/>📋 Provide specific error details<br/>🔧 Suggest resolution steps"]
-    J -->|Yes| L["Step 5: PHASE 1 - Understanding<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_phase_transition understanding'<br/>🔧 Task → agents/flow/research<br/>📝 'Analyze ticket and codebase - produce research-findings.md'"]
+    J -->|Yes| L["Step 5: PHASE 1 - Understanding<br/>📄 Update working-doc.md with phase transition<br/>🔧 Task → agents/flow/research<br/>📝 'Analyze ticket and codebase - produce research-findings.md'"]
     
     L --> M{Research completed successfully?}
-    M -->|No| N["⚠️ Update state with blocker<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Research failed: {error}'<br/>📋 Report to user with details"]
-    M -->|Yes| O["✅ Update milestone completion<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Requirements analyzed completed=true'<br/>📊 Present research findings to user"]
+    M -->|No| N["⚠️ Update working-doc.md with blocker<br/>📄 Document research failure in working-doc.md<br/>📝 Record blocker details and status<br/>📋 Report to user with details"]
+    M -->|Yes| O["✅ Update milestone completion<br/>📄 Mark requirements milestone complete in working-doc.md<br/>📝 Update progress tracking section<br/>📊 Present research findings to user"]
     O --> P{User approves to continue?}
-    P -->|No| Q["⏸️ Pause workflow<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Workflow paused - awaiting user input'<br/>⏳ Wait for user guidance"]
-    P -->|Yes| R["Step 6: PHASE 2 - Planning<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_phase_transition planning'<br/>🔧 Task → agents/flow/planning<br/>📝 'Create implementation plan from research-findings.md'"]
+    P -->|No| Q["⏸️ Pause workflow<br/>📄 Update working-doc.md with pause status<br/>📝 Record 'Workflow paused - awaiting user input'<br/>⏳ Wait for user guidance"]
+    P -->|Yes| R["Step 6: PHASE 2 - Planning<br/>📄 Update working-doc.md with planning phase<br/>📝 Set current phase to planning<br/>🔧 Task → agents/flow/planning<br/>📝 'Create implementation plan from research-findings.md'"]
     
     R --> S{Planning completed successfully?}
-    S -->|No| T["⚠️ Update state with blocker<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Planning failed: {error}'<br/>📋 Report to user with details"]
-    S -->|Yes| U["✅ Update milestone completion<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Implementation plan approved completed=true'<br/>📊 Present implementation plan to user"]
+    S -->|No| T["⚠️ Update working-doc.md with blocker<br/>📄 Document planning failure in working-doc.md<br/>📝 Record blocker details and status<br/>📋 Report to user with details"]
+    S -->|Yes| U["✅ Update milestone completion<br/>📄 Mark planning milestone complete in working-doc.md<br/>📝 Update progress tracking section<br/>📊 Present implementation plan to user"]
     U --> V{User approves to continue?}
     V -->|No| W["⏸️ Pause workflow<br/>📝 Same pause protocol as step Q"]
-    V -->|Yes| X["Step 7: PHASE 3 - Execution<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_phase_transition execution'<br/>🔄 Begin step-by-step execution loop"]
+    V -->|Yes| X["Step 7: PHASE 3 - Execution<br/>📄 Update working-doc.md with execution phase<br/>📝 Set current phase to execution<br/>🔄 Begin step-by-step execution loop"]
     
-    X --> Y["Execute Next Step Loop:<br/>📋 Get next unchecked step from working-doc.md<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Implementing step X of Y: {description}'<br/>🔧 Task → agents/flow/execution<br/>📝 'Execute ONLY step X: {specific_step_details}'"]
+    X --> Y["Execute Next Step Loop:<br/>📋 Get next unchecked step from working-doc.md<br/>📄 Update working-doc.md with current step status<br/>📝 Record 'Implementing step X of Y: {description}'<br/>🔧 Task → agents/flow/execution<br/>📝 'Execute ONLY step X: {specific_step_details}'"]
     Y --> Z{Step completed successfully?}
-    Z -->|No| AA["⚠️ Handle execution blocker<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Step X failed: {error}'<br/>📋 Report issue to user with details"]
-    Z -->|Yes| BB["✅ Update progress and commit<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_progress' and 'update_quality'<br/>🔧 Task → agents/flow/commit<br/>📝 'Create commit for step X completion'"]
-    BB --> CC["🔧 Task → agents/flow/state_manager<br/>📝 'update_commit {hash}' and 'update_milestone'"]
+    Z -->|No| AA["⚠️ Handle execution blocker<br/>📄 Document execution failure in working-doc.md<br/>📝 Record 'Step X failed: {error}' in blockers section<br/>📋 Report issue to user with details"]
+    Z -->|Yes| BB["✅ Update progress and commit<br/>📄 Mark step complete in working-doc.md<br/>📝 Update progress tracking and quality status<br/>🔧 Task → agents/flow/commit<br/>📝 'Create commit for step X completion'"]
+    BB --> CC["📄 Update working-doc.md with commit<br/>📝 Record commit hash and update milestone progress"]
     CC --> DD{More steps to execute?}
     DD -->|Yes| EE["📊 Present progress to user<br/>📈 Show completed steps and remaining work<br/>🎯 Highlight current milestone progress"]
-    DD -->|No| FF["Step 8: PHASE 4 - Integration<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_phase_transition integration'<br/>🔧 Task → agents/flow/validation<br/>📝 'Perform comprehensive quality validation'"]
+    DD -->|No| FF["Step 8: PHASE 4 - Integration<br/>📄 Update working-doc.md with integration phase<br/>📝 Set current phase to integration<br/>🔧 Task → agents/flow/validation<br/>📝 'Perform comprehensive quality validation'"]
     EE --> GG{User approves to continue?}
     GG -->|No| HH["⏸️ Pause workflow<br/>📝 Same pause protocol as step Q"]
     GG -->|Yes| Y
     
     FF --> II{Validation passed?}
-    II -->|No| JJ["❌ Block integration<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error' and 'update_blocker Validation failed'<br/>📋 Present validation issues to user"]
-    II -->|Yes| KK["✅ Prepare for integration<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health healthy' and 'update_milestone Code review ready'<br/>🔧 Task → create_mr_description<br/>📝 'Generate MR documentation'"]
+    II -->|No| JJ["❌ Block integration<br/>📄 Update working-doc.md with error status<br/>📝 Record 'Validation failed' in blockers section<br/>📋 Present validation issues to user"]
+    II -->|Yes| KK["✅ Prepare for integration<br/>📄 Update working-doc.md with healthy status<br/>📝 Mark 'Code review ready' milestone complete<br/>🔧 Task → create_mr_description<br/>📝 'Generate MR documentation'"]
     KK --> LL["📊 Present final results to user<br/>📈 Show completion summary<br/>🎯 Highlight all completed milestones<br/>📋 Present MR documentation"]
     LL --> MM{User approves for MR creation?}
     MM -->|No| NN["⏸️ Pause for final review<br/>📝 Same pause protocol as step Q"]
-    MM -->|Yes| OO["🎉 Complete workflow<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Workflow completed successfully'<br/>✅ Mark status as completed"]
+    MM -->|Yes| OO["🎉 Complete workflow<br/>📄 Update working-doc.md with completion<br/>📝 Mark 'Workflow completed successfully' milestone<br/>✅ Set final status as completed"]
     OO --> PP[End - Workflow Complete]
     
     %% Error recovery paths
@@ -117,15 +117,15 @@ flowchart TD
 3. Expected deliverable
 4. Apply feedback preferences for instruction detail level
 
-### State Manager Commands
-- `update_phase_transition {phase}` - Move between phases
-- `update_current_activity "{description}"` - Set current work
-- `update_milestone "{name}" completed=true/false` - Track progress
-- `update_blocker "{description}"` - Record issues
-- `update_health healthy/warning/error` - Set workflow health
-- `update_progress` - Recalculate completion percentage
-- `update_quality tests_passing=true/false linting_clean=true/false`
-- `update_commit {hash}` - Record commit for tracking
+### Working Document Updates
+- Update current phase in working-doc.md header
+- Record current activity in progress section
+- Mark milestones as complete/incomplete with timestamps
+- Document blockers with detailed descriptions
+- Track workflow health status (healthy/warning/error)
+- Update progress percentage based on completed steps
+- Record quality indicators (tests passing, linting clean)
+- Log commit hashes in commits section
 
 ### Available Agents
 - `agents/flow/research` - Ticket analysis and codebase exploration
@@ -133,13 +133,12 @@ flowchart TD
 - `agents/flow/execution` - Step-by-step implementation
 - `agents/flow/validation` - Quality assurance and security
 - `agents/flow/commit` - Commit creation at checkpoints
-- `agents/flow/state_manager` - Workflow state management
 - `create_mr_description` - MR documentation generation
 
 ### Error Handling
-- Always update state with specific blocker details
+- Always update working-doc.md with specific blocker details
 - Provide clear user context for all errors
 - Never attempt direct fixes - delegate appropriately
 - Offer recovery paths and alternative approaches
 
-**CRITICAL**: Never implement code directly. Always delegate to appropriate agents. Always update state after each delegation.
+**CRITICAL**: Never implement code directly. Always delegate to appropriate agents. Always update working-doc.md after each delegation.

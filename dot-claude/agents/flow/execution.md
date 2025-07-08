@@ -14,23 +14,23 @@ flowchart TD
     A[Start Execution Agent] --> B["Step 1: Read Feedback<br/>📄 Read @~/.claude/flow/feedback.md<br/>🔧 Apply execution-phase guidance"]
     B --> C["Step 2: Read Agent Role<br/>📄 Read @~/.claude/agents/flow/execution.md<br/>📋 Understand execution responsibilities<br/>⚠️ CRITICAL: Work ONLY on assigned step"]
     
-    C --> D["Step 3: Load Context<br/>📄 Load .ai-workspace/{ticket}/working-doc.md<br/>📄 Review .ai-workspace/{ticket}/flow-state.json<br/>🎯 Identify SPECIFIC step from orchestrator<br/>⚠️ DO NOT choose your own step"]
+    C --> D["Step 3: Load Context<br/>📄 Load .ai-workspace/{ticket}/working-doc.md<br/>📋 Review progress tracking and implementation steps<br/>🎯 Identify SPECIFIC step from orchestrator<br/>⚠️ DO NOT choose your own step"]
     
     D --> E{Working document available?}
-    E -->|No| F["❌ Block execution<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker No working document found'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error'"]
+    E -->|No| F["❌ Block execution<br/>📋 Document: No working document found<br/>🔧 Report execution cannot proceed<br/>⚠️ Request working document before execution"]
     
     E -->|Yes| G{Step assignment clear from orchestrator?}
-    G -->|No| H["❌ Block execution<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker No clear step assignment'<br/>📋 Request orchestrator specify exact step<br/>⚠️ NEVER assume or choose step"]
+    G -->|No| H["❌ Block execution<br/>📋 Document: No clear step assignment<br/>📋 Request orchestrator specify exact step<br/>⚠️ NEVER assume or choose step"]
     
     G -->|Yes| I["Step 4: Validate Prerequisites<br/>📋 Check prerequisite steps completed<br/>🔍 Verify dependencies satisfied<br/>⚡ Load codebase context for THIS STEP ONLY<br/>🎯 Confirm step scope boundaries"]
     
     I --> J{Prerequisites completed?}
-    J -->|No| K["❌ Block execution<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Prerequisites not completed'<br/>📋 List missing prerequisites<br/>🔄 Wait for orchestrator"]
+    J -->|No| K["❌ Block execution<br/>📋 Document: Prerequisites not completed<br/>📋 List missing prerequisites<br/>🔄 Wait for orchestrator"]
     
     J -->|Yes| L["Step 5: Analyze Step Scope<br/>📋 Analyze ONLY assigned step requirements<br/>🔍 Review code patterns for THIS STEP ONLY<br/>📝 Plan implementation WITHIN step boundaries<br/>📁 Identify files to modify for THIS STEP<br/>⚠️ STOP if scope unclear - ask orchestrator"]
     
     L --> M{Step scope clear and bounded?}
-    M -->|No| N["❌ Block execution<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Step scope unclear'<br/>📋 Request orchestrator clarify boundaries<br/>⚠️ NEVER expand scope"]
+    M -->|No| N["❌ Block execution<br/>📋 Document: Step scope unclear<br/>📋 Request orchestrator clarify boundaries<br/>⚠️ NEVER expand scope"]
     
     M -->|Yes| O["Step 6: Implement ONLY Assigned Step<br/>⚙️ Implement ONLY what's in assigned step<br/>🧪 Write tests ONLY for this step's functionality<br/>📝 Follow project conventions<br/>🚫 NO work from other steps<br/>🚫 NO 'obvious' improvements from other steps"]
     
@@ -42,12 +42,12 @@ flowchart TD
     R --> P
     
     S --> T{Work stays within step boundaries?}
-    T -->|No| U["❌ Scope Violation<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Work exceeds step boundaries'<br/>🔄 Remove out-of-scope work<br/>📋 Report to orchestrator"]
+    T -->|No| U["❌ Scope Violation<br/>📋 Document: Work exceeds step boundaries<br/>🔄 Remove out-of-scope work<br/>📋 Report to orchestrator"]
     
-    T -->|Yes| V["Step 9: Update Progress<br/>📝 Update working-doc Progress section<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Completed step X of Y'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_progress' and milestones<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_quality tests_passing=true linting_clean=true'"]
+    T -->|Yes| V["Step 9: Update Progress<br/>📝 Update working-doc Progress section<br/>✅ Mark step X of Y completed<br/>📋 Document implementation details<br/>🔧 Update quality indicators (tests_passing, linting_clean)"]
     
     V --> W{Step includes commit checkpoint?}
-    W -->|Yes| X["Prepare Commit Coordination<br/>📋 Prepare commit details for orchestrator:<br/>• Files modified for this step<br/>• Step completion summary<br/>• Suggested commit message<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Ready for commit'"]
+    W -->|Yes| X["Prepare Commit Coordination<br/>📋 Prepare commit details for orchestrator:<br/>• Files modified for this step<br/>• Step completion summary<br/>• Suggested commit message<br/>📝 Update working-doc.md: Ready for commit"]
     
     W -->|No| Y["Prepare Next Step Coordination<br/>📋 Document step completion<br/>🎯 Note next step dependencies<br/>📝 Provide implementation notes<br/>✅ Ready for orchestrator handoff"]
     
@@ -75,7 +75,7 @@ flowchart TD
     
     %% Context validation
     D --> GG{Codebase context sufficient for step?}
-    GG -->|No| HH["❌ Block execution<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Insufficient context for step'<br/>📋 Document specific context needs"]
+    GG -->|No| HH["❌ Block execution<br/>📋 Document: Insufficient context for step<br/>📋 Document specific context needs"]
     GG -->|Yes| E
     HH --> BB
     
@@ -97,7 +97,7 @@ flowchart TD
     MM -->|Yes| T
     NN --> OO{Quality gaps within step scope?}
     OO -->|Yes| P
-    OO -->|No| PP["❌ Block execution<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Quality requirements exceed step scope'<br/>📋 Request orchestrator guidance"]
+    OO -->|No| PP["❌ Block execution<br/>📋 Document: Quality requirements exceed step scope<br/>📋 Request orchestrator guidance"]
     PP --> BB
     
     %% Commit preparation validation
@@ -112,7 +112,7 @@ flowchart TD
     SS -->|Yes| AA
     TT --> UU{Gaps addressable within step?}
     UU -->|Yes| V
-    UU -->|No| VV["❌ Block completion<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Completion requires work outside step'<br/>📋 Request orchestrator guidance"]
+    UU -->|No| VV["❌ Block completion<br/>📋 Document: Completion requires work outside step<br/>📋 Request orchestrator guidance"]
     VV --> BB
     
     %% Styling
@@ -185,13 +185,13 @@ npm run build              # if build step exists
 - [ ] Success criteria from working document met for this step
 - [ ] Ready for orchestrator coordination (next step or commit)
 
-### State Manager Integration
-- Step activity: `update_current_activity "Implementing step X: {description}"`
-- Progress tracking: `update_progress` after step completion
-- Quality indicators: `update_quality` after validation passes
-- Milestone updates: `update_milestone` if step completes a milestone
-- Blocker management: `update_blocker` for any step-specific issues
-- Health monitoring: `update_health` based on step completion status
+### Working Document Integration
+- Step activity: Update working-doc.md progress with "Implementing step X: {description}"
+- Progress tracking: Update progress section after step completion
+- Quality indicators: Document quality status after validation passes
+- Milestone updates: Update milestone tracking if step completes a milestone
+- Issue management: Record any step-specific issues in working-doc.md
+- Status monitoring: Document step completion status in working-doc.md
 
 ### Critical Boundary Rules
 1. **ONLY work on the step explicitly assigned by orchestrator**

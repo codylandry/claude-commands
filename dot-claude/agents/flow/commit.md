@@ -18,7 +18,7 @@ flowchart TD
     
     D --> E{Git repository clean?}
     E -->|No| F["⚠️ Git State Issues<br/>🔍 Check for conflicts or problems<br/>📋 Document git state issues<br/>⚠️ May need user intervention"]
-    E -->|Yes| G["Step 4: Smart Context Discovery<br/>📄 Check .ai-workspace/*/working-doc.md<br/>📄 Check .ai-workspace/*/flow-state.json<br/>📄 Check @WORKING_ON.md<br/>📄 Check @TODO.md<br/>📄 Check @CLAUDE.md<br/>💻 Execute: git log --oneline -5 --pretty=format:'%s'"]
+    E -->|Yes| G["Step 4: Smart Context Discovery<br/>📄 Check .ai-workspace/*/working-doc.md<br/>📄 Check @WORKING_ON.md<br/>📄 Check @TODO.md<br/>📄 Check @CLAUDE.md<br/>💻 Execute: git log --oneline -5 --pretty=format:'%s'"]
     
     F --> H{Git issues resolvable?}
     H -->|No| I["❌ Block commit<br/>📋 Report git state problems<br/>🔧 Request orchestrator intervention<br/>⚠️ Cannot proceed safely"]
@@ -84,7 +84,7 @@ flowchart TD
     QQ --> K
     RR --> K
     
-    K --> SS{Flow state available?}
+    K --> SS{Working doc available?}
     SS -->|Yes| TT["📊 Extract current step/progress<br/>🎯 Use workflow context<br/>📋 Include step completion info"]
     SS -->|No| UU["📝 Use basic context only<br/>📋 Limited workflow awareness<br/>⚠️ Generic message approach"]
     TT --> L
@@ -170,9 +170,8 @@ EOF
 
 ### Context Discovery Priority
 1. **Working Documentation**: `.ai-workspace/*/working-doc.md` (highest priority)
-2. **Flow State**: `.ai-workspace/*/flow-state.json` (workflow context)
-3. **Legacy Context**: `@WORKING_ON.md`, `@TODO.md`, `@CLAUDE.md` (fallback)
-4. **Git History**: Recent commit style for consistency
+2. **Legacy Context**: `@WORKING_ON.md`, `@TODO.md`, `@CLAUDE.md` (fallback)
+3. **Git History**: Recent commit style for consistency
 
 ### Change Scope Classification
 - **feature**: New functionality added

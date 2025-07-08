@@ -45,12 +45,12 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 │   ├── working-doc.md          # Main implementation plan and progress tracking
 │   ├── research-findings.md    # Detailed research findings and analysis
 │   ├── implementation-notes.md # Implementation-specific decisions and patterns
-│   ├── analysis.md            # Code analysis and architectural insights
-│   └── flow-state.json        # Flow orchestration state and progress tracking
+│   └── analysis.md            # Code analysis and architectural insights
 └── TICKET-456/
     ├── working-doc.md
     ├── research-findings.md
-    └── flow-state.json
+    ├── implementation-notes.md
+    └── analysis.md
 ```
 
 #### Usage Guidelines
@@ -58,11 +58,10 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 **Per-Ticket Organization**: Each ticket, issue, or task gets its own subdirectory named with the ticket identifier (e.g., JIRA key, GitHub issue number).
 
 **Document Types**:
-- **working-doc.md**: Core planning document with implementation steps, requirements, and progress tracking
+- **working-doc.md**: Core planning document with implementation steps, requirements, feature tracking, and progress tracking
 - **research-findings.md**: Comprehensive research outputs from the flow research agent
 - **implementation-notes.md**: Technical decisions, patterns discovered, and implementation-specific insights
 - **analysis.md**: Code analysis, architecture reviews, and system understanding
-- **flow-state.json**: Flow orchestration state tracking phases, agent history, and workflow progress
 
 **AI Command Integration**: 
 - The `flow:start` command orchestrates complete development workflows using specialized agents
@@ -71,7 +70,6 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 - The `agents/flow/execution` agent executes specific implementation steps from working documents
 - The `agents/flow/validation` agent performs quality assurance and validation
 - The `agents/flow/commit` agent creates commits at workflow checkpoints
-- The `agents/flow/state_manager` agent tracks workflow progress and state
 
 **Flow-Based Workflow Approach**:
 
@@ -84,7 +82,7 @@ The flow system provides a structured, phase-based approach to development:
 
 Each phase includes:
 - User checkpoints for approval before proceeding
-- State tracking via flow-state.json for workflow continuity
+- Progress tracking via working-doc.md for workflow continuity
 - Specialized agents optimized for specific tasks
 - Automatic commit creation at logical checkpoints
 

@@ -14,82 +14,82 @@ flowchart TD
     A[Start Validation Agent] --> B["Step 1: Read Feedback<br/>📄 Read @~/.claude/flow/feedback.md<br/>🔧 Apply validation-phase guidance"]
     B --> C["Step 2: Read Agent Role<br/>📄 Read @~/.claude/agents/flow/validation.md<br/>📋 Understand validation responsibilities"]
     
-    C --> D["Step 3: Initialize Validation<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Starting comprehensive quality validation'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Quality validation complete in_progress'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health healthy'"]
+    C --> D["Step 3: Initialize Validation<br/>📝 Update working-doc.md with validation start<br/>📋 Document quality validation progress<br/>⚡ Begin comprehensive quality validation"]
     
-    D --> E["Step 4: Load Context<br/>📄 Load .ai-workspace/{ticket}/working-doc.md<br/>📄 Review .ai-workspace/{ticket}/flow-state.json<br/>📋 Identify implementation changes to validate<br/>⚡ Understand validation scope"]
+    D --> E["Step 4: Load Context<br/>📄 Load .ai-workspace/{ticket}/working-doc.md<br/>📋 Review progress tracking and implementation changes<br/>📋 Identify implementation changes to validate<br/>⚡ Understand validation scope"]
     
     E --> F{Working document available?}
-    F -->|No| G["❌ Block validation<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker No working document found'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error'"]
+    F -->|No| G["❌ Block validation<br/>📋 Document: No working document found<br/>🔧 Report validation cannot proceed<br/>⚠️ Request working document before validation"]
     
-    F -->|Yes| H["Step 5: PHASE 1 - Code Quality Analysis<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Conducting code quality analysis'<br/>🔍 Execute static code analysis - linting<br/>🏗️ Execute architecture review<br/>📋 Check convention compliance<br/>⚠️ Detect code smells and complexity"]
+    F -->|Yes| H["Step 5: PHASE 1 - Code Quality Analysis<br/>📝 Update working-doc.md: Start code quality analysis<br/>🔍 Execute static code analysis - linting<br/>🏗️ Execute architecture review<br/>📋 Check convention compliance<br/>⚠️ Detect code smells and complexity"]
     
     H --> I{Linting tools available?}
-    I -->|No| J["⚠️ Infrastructure Issue<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Linting infrastructure failure'<br/>📋 Document tool failures<br/>🔄 Attempt alternative methods"]
+    I -->|No| J["⚠️ Infrastructure Issue<br/>📝 Update working-doc.md: Linting infrastructure failure<br/>📋 Document tool failures<br/>🔄 Attempt alternative methods"]
     I -->|Yes| K[Execute: npm run lint OR project linting command]
     
     K --> L{Linting passes?}
-    L -->|No| M["📝 Document linting issues<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_quality linting_clean=false'<br/>📋 Record specific linting failures"]
-    L -->|Yes| N["✅ Linting Clean<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_quality linting_clean=true'"]
+    L -->|No| M["📝 Document linting issues<br/>📋 Update working-doc.md: Linting failures found<br/>📋 Record specific linting failures"]
+    L -->|Yes| N["✅ Linting Clean<br/>📝 Update working-doc.md: Linting passed<br/>✅ Record linting success"]
     
-    M --> O["Step 6: PHASE 2 - Security Assessment<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Conducting security assessment'<br/>🔒 Execute vulnerability scanning<br/>🛡️ Check input validation and injection risks<br/>🔐 Verify authentication/authorization<br/>🔑 Review cryptographic practices<br/>🕵️ Assess sensitive data handling"]
+    M --> O["Step 6: PHASE 2 - Security Assessment<br/>📝 Update working-doc.md: Start security assessment<br/>🔒 Execute vulnerability scanning<br/>🛡️ Check input validation and injection risks<br/>🔐 Verify authentication/authorization<br/>🔑 Review cryptographic practices<br/>🕵️ Assess sensitive data handling"]
     N --> O
     J --> O
     
     O --> P{Security scanning tools available?}
-    P -->|No| Q["⚠️ Limited Security Validation<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health warning'<br/>📋 Document security tool limitations<br/>🔍 Recommend manual security review"]
+    P -->|No| Q["⚠️ Limited Security Validation<br/>📝 Update working-doc.md: Security tool limitations<br/>📋 Document security tool limitations<br/>🔍 Recommend manual security review"]
     P -->|Yes| R[Execute: npm audit OR security scanning tools]
     
     R --> S{Security issues found?}
     S -->|Yes| T{High-severity vulnerabilities?}
-    S -->|No| U["✅ Security Clean<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health healthy'"]
+    S -->|No| U["✅ Security Clean<br/>📝 Update working-doc.md: Security assessment passed<br/>✅ No security issues found"]
     
-    T -->|Yes| V["🚨 Critical Security Issues<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Security vulnerabilities detected: high-severity'<br/>📋 Document vulnerability details"]
-    T -->|No| W["⚠️ Security Warnings<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health warning'<br/>📋 Document security issues with severity"]
+    T -->|Yes| V["🚨 Critical Security Issues<br/>📝 Update working-doc.md: Critical security vulnerabilities found<br/>📋 Document vulnerability details<br/>🚨 Block integration due to security issues"]
+    T -->|No| W["⚠️ Security Warnings<br/>📝 Update working-doc.md: Security warnings found<br/>📋 Document security issues with severity"]
     
-    Q --> X["Step 7: PHASE 3 - Performance Validation<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Conducting performance validation'<br/>⚡ Analyze algorithmic efficiency<br/>💾 Assess resource usage<br/>🗄️ Review database operations<br/>🚀 Evaluate caching strategy"]
+    Q --> X["Step 7: PHASE 3 - Performance Validation<br/>📝 Update working-doc.md: Start performance validation<br/>⚡ Analyze algorithmic efficiency<br/>💾 Assess resource usage<br/>🗄️ Review database operations<br/>🚀 Evaluate caching strategy"]
     U --> X
     W --> X
     V --> Y[Block Integration - Critical Issues Found]
     
     X --> Z{Performance regression detected?}
-    Z -->|Yes| AA["⚠️ Performance Issues<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health warning'<br/>📋 Document performance concerns"]
+    Z -->|Yes| AA["⚠️ Performance Issues<br/>📝 Update working-doc.md: Performance concerns found<br/>📋 Document performance concerns"]
     Z -->|No| BB["✅ Performance Acceptable"]
     
-    AA --> CC["Step 8: PHASE 4 - Test Coverage Assessment<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Validating test coverage and running test suites'<br/>🧪 Execute comprehensive test suite<br/>📊 Assess unit test quality and coverage<br/>🔗 Verify integration test completeness<br/>🎯 Validate end-to-end test coverage"]
+    AA --> CC["Step 8: PHASE 4 - Test Coverage Assessment<br/>📝 Update working-doc.md: Start test coverage validation<br/>🧪 Execute comprehensive test suite<br/>📊 Assess unit test quality and coverage<br/>🔗 Verify integration test completeness<br/>🎯 Validate end-to-end test coverage"]
     BB --> CC
     
     CC --> DD{Test infrastructure available?}
-    DD -->|No| EE["⚠️ Test Infrastructure Failure<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Test infrastructure failure'<br/>📋 Document infrastructure problems<br/>🔄 Recommend manual testing"]
+    DD -->|No| EE["⚠️ Test Infrastructure Failure<br/>📝 Update working-doc.md: Test infrastructure failure<br/>📋 Document infrastructure problems<br/>🔄 Recommend manual testing"]
     DD -->|Yes| FF[Execute: npm test OR project test command]
     
     FF --> GG{All tests passing?}
     GG -->|No| HH{Critical test failures?}
-    GG -->|Yes| II["✅ Tests Passing<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_quality tests_passing=true'"]
+    GG -->|Yes| II["✅ Tests Passing<br/>📝 Update working-doc.md: All tests passing<br/>✅ Test validation successful"]
     
-    HH -->|Yes| JJ["🚨 Critical Test Failures<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_quality tests_passing=false'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Test failures detected'"]
-    HH -->|No| KK["⚠️ Non-Critical Test Issues<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_quality tests_passing=false'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health warning'"]
+    HH -->|Yes| JJ["🚨 Critical Test Failures<br/>📝 Update working-doc.md: Critical test failures<br/>🚨 Block integration due to test failures<br/>📋 Document test failure details"]
+    HH -->|No| KK["⚠️ Non-Critical Test Issues<br/>📝 Update working-doc.md: Non-critical test issues<br/>⚠️ Note test warnings for review"]
     
     II --> LL{Coverage meets requirements?}
     KK --> LL
     EE --> LL
     JJ --> Y
     
-    LL -->|No| MM["⚠️ Insufficient Coverage<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health warning'<br/>📋 Document coverage gaps"]
+    LL -->|No| MM["⚠️ Insufficient Coverage<br/>📝 Update working-doc.md: Coverage gaps found<br/>📋 Document coverage gaps"]
     LL -->|Yes| NN["✅ Coverage Adequate"]
     
     MM --> OO["Step 9: Generate Validation Report<br/>📄 Create .ai-workspace/{ticket}/validation-report.md<br/>📊 Generate executive summary with overall grade<br/>🔴 Document critical issues (blocking)<br/>🟡 Document important issues (recommended)<br/>🟢 Document quality observations<br/>✅ Generate validation checklist results"]
     NN --> OO
     
     OO --> PP{Validation report complete?}
-    PP -->|No| QQ["❌ Block validation<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Unable to generate validation report'<br/>📋 Document report generation issues"]
+    PP -->|No| QQ["❌ Block validation<br/>📝 Update working-doc.md: Unable to generate validation report<br/>📋 Document report generation issues"]
     PP -->|Yes| RR["Step 10: Final Assessment<br/>📊 Calculate overall validation results<br/>🎯 Determine integration readiness<br/>⚖️ Assess risk level<br/>📋 Compile final recommendations"]
     
     RR --> SS{Overall validation results}
-    SS -->|Critical issues found| TT["🚨 BLOCK INTEGRATION<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health error'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_blocker Critical validation issues require resolution'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Quality validation complete completed=false'"]
+    SS -->|Critical issues found| TT["🚨 BLOCK INTEGRATION<br/>📝 Update working-doc.md: Critical validation issues - integration blocked<br/>🚨 Record critical issues requiring resolution<br/>❌ Mark validation failed in progress tracking"]
     
-    SS -->|Important issues only| UU["⚠️ CONDITIONAL INTEGRATION<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health warning'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Quality validation complete completed=true'<br/>📋 Set integration_ready with conditions"]
+    SS -->|Important issues only| UU["⚠️ CONDITIONAL INTEGRATION<br/>📝 Update working-doc.md: Validation passed with conditions<br/>⚠️ Record important issues to address<br/>✅ Mark validation complete with conditions"]
     
-    SS -->|No blocking issues| VV["✅ APPROVE INTEGRATION<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_health healthy'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_milestone Quality validation complete completed=true'<br/>🔧 Task → agents/flow/state_manager<br/>📝 'update_current_activity Validation complete - ready for integration'"]
+    SS -->|No blocking issues| VV["✅ APPROVE INTEGRATION<br/>📝 Update working-doc.md: Validation complete - integration approved<br/>✅ Record validation success<br/>🚀 Mark ready for integration"]
     
     TT --> WW["Step 11: Return Validation Summary<br/>📋 Block integration with detailed issues<br/>🔧 Provide remediation guidance<br/>📄 Reference validation report<br/>🔄 Offer re-validation after fixes"]
     UU --> XX["Step 11: Return Validation Summary<br/>📋 Conditional approval with recommendations<br/>⚠️ List important issues to address<br/>📄 Reference validation report<br/>✅ Approve integration with monitoring"]
@@ -226,13 +226,13 @@ npm run build                    # Build process validation
 npm audit                        # Security vulnerability scan
 ```
 
-### State Manager Integration
-- **Phase Activities**: Update activity for each validation phase
-- **Quality Indicators**: Update `tests_passing`, `linting_clean` based on results
-- **Health Status**: Update based on severity of issues found
-- **Milestone Tracking**: Mark "Quality validation complete" with pass/fail status
-- **Blocker Management**: Record validation blockers with specific details
-- **Integration Readiness**: Set based on overall validation results
+### Working Document Integration
+- **Phase Activities**: Update working-doc.md progress section for each validation phase
+- **Quality Indicators**: Document tests_passing, linting_clean status in working-doc.md
+- **Validation Status**: Update based on severity of issues found
+- **Progress Tracking**: Mark "Quality validation complete" with pass/fail status
+- **Issue Management**: Record validation issues with specific details in working-doc.md
+- **Integration Readiness**: Document integration approval status based on validation results
 
 ### Critical Decision Matrix
 | Issue Severity | Health Status | Integration Ready | Action Required |
