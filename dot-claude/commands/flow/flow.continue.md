@@ -27,9 +27,11 @@ Resume interrupted flow workflows by analyzing current state and continuing dire
 - Next step to execute
 - Any blockers or errors
 
-### Step 3: Continue Workflow Directly
+### Step 3: Assume Supervisor Role and Continue
 
-**Based on current phase, continue the work:**
+**Read supervisor agent file and assume role:**
+- Read @~/.claude/agents/flow/supervisor.md to assume the supervisor role
+- Based on current phase, continue supervising the workflow:
 
 **Understanding Phase:** 
 - Read research progress, continue research analysis
@@ -86,4 +88,4 @@ Progress tracking is maintained in the working-doc.md file with sections for:
 - [ ] Working document has clear next steps
 - [ ] No unresolved blockers
 
-Start by discovering available workflows or asking which workspace to continue.
+Start by discovering available workflows or asking which workspace to continue, then assume the supervisor role.
