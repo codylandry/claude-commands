@@ -43,14 +43,10 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 .ai-workspace/
 ├── TICKET-123/
 │   ├── working-doc.md          # Main implementation plan and progress tracking
-│   ├── research-findings.md    # Detailed research findings and analysis
-│   ├── implementation-notes.md # Implementation-specific decisions and patterns
-│   ├── analysis.md            # Code analysis and architectural insights
-│   └── flow-state.json        # Flow orchestration state and progress tracking
+│   └── research-findings.md    # Detailed research findings and analysis
 └── TICKET-456/
     ├── working-doc.md
-    ├── research-findings.md
-    └── flow-state.json
+    └── research-findings.md
 ```
 
 #### Usage Guidelines
@@ -58,33 +54,34 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
 **Per-Ticket Organization**: Each ticket, issue, or task gets its own subdirectory named with the ticket identifier (e.g., JIRA key, GitHub issue number).
 
 **Document Types**:
-- **working-doc.md**: Core planning document with implementation steps, requirements, and progress tracking
-- **research-findings.md**: Comprehensive research outputs from the flow research agent
-- **implementation-notes.md**: Technical decisions, patterns discovered, and implementation-specific insights
-- **analysis.md**: Code analysis, architecture reviews, and system understanding
-- **flow-state.json**: Flow orchestration state tracking phases, agent history, and workflow progress
+- **working-doc.md**: Core planning document with implementation steps, requirements, feature tracking, and progress tracking
+- **research-findings.md**: Comprehensive research outputs from the flow research agent including technical decisions, patterns discovered, and architectural insights
 
 **AI Command Integration**: 
-- The `flow:start` command orchestrates complete development workflows using specialized agents
-- The `agents/flow/research` agent produces comprehensive research findings and analysis
-- The `agents/flow/planning` agent creates detailed implementation plans and working documents
+- The `flow.start` command orchestrates complete development workflows using specialized agents
+- The `flow.continue` command resumes existing workflows from where they left off
+- The `flow.tune` command collects feedback to improve the flow system performance
+- The `agents/flow/supervisor` agent orchestrates the overall workflow coordination
+- The `agents/flow/research` agent produces comprehensive research findings and analysis  
 - The `agents/flow/execution` agent executes specific implementation steps from working documents
 - The `agents/flow/validation` agent performs quality assurance and validation
 - The `agents/flow/commit` agent creates commits at workflow checkpoints
-- The `agents/flow/state_manager` agent tracks workflow progress and state
+
+**Flow Agent Implementation**:
+Flow agents are implemented as subagents using the Task tool. Each agent is instructed to read its corresponding agent file from `~/.claude/agents/flow/...` to assume the appropriate role and accomplish the task assigned to it. This approach allows for specialized agent behavior while maintaining a unified task execution framework.
 
 **Flow-Based Workflow Approach**:
 
 The flow system provides a structured, phase-based approach to development:
 
 1. **Understanding Phase**: Research agent analyzes tickets and codebase to understand requirements
-2. **Planning Phase**: Planning agent creates detailed implementation plans with step-by-step breakdowns
+2. **Planning Phase**: Supervisor agent creates detailed implementation plans with step-by-step breakdowns
 3. **Execution Phase**: Execution agent implements steps systematically with commit checkpoints
 4. **Integration Phase**: Validation agent ensures quality and prepares for merge requests
 
 Each phase includes:
 - User checkpoints for approval before proceeding
-- State tracking via flow-state.json for workflow continuity
+- Progress tracking via working-doc.md for workflow continuity
 - Specialized agents optimized for specific tasks
 - Automatic commit creation at logical checkpoints
 
@@ -100,7 +97,6 @@ Each phase includes:
 
 ### Repository Conventions
 - GitLab is used for Zapier repositories
-- GitHub is used for personal repositories in `~/repos/personal/`
 - Always examine existing code patterns before implementing new features
 - Prioritize clean, readable code over clever solutions
 - Generate comprehensive tests for all new functionality
@@ -121,7 +117,17 @@ Each phase includes:
 
 ## Tools and Shortcuts
 
-When working with tickets:
+### Flow Command Usage
+- `flow.start` - Start new development workflows (reads feedback from `~/.claude/flow/feedback.md`)
+- `flow.continue` - Resume existing workflows from current state in working-doc.md
+- `flow.tune` - Collect feedback to improve flow system performance
+
+### Ticket Management
 - Use `jira issue view <key> --raw | jq` for detailed ticket information
 - Check parent and linked tickets for additional context
 - Reference working documents in `.ai-workspace/<ticket-key>/` for implementation context
+
+### Flow State Management
+- All progress tracked in working-doc.md for workflow continuity
+- Use research-findings.md for architectural decisions and technical insights
+- Flow commands automatically discover/create workspaces in `.ai-workspace/`

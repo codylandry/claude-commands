@@ -1,111 +1,91 @@
 ---
-description: "Continue existing flow workflows by analyzing state and resuming from last checkpoint"
-allowed-tools: [Task, Read, Write, Edit, Bash, Grep, Glob, TodoWrite, TodoRead]
+description: "Continue existing flow workflows from where they left off"
+allowed-tools: [Read, Write, Edit, Bash, Grep, Glob, TodoWrite, TodoRead]
 ---
 
 # Continue Flow Command
 
-You are a Flow Continuation Initializer. Your role is to analyze existing flow state and resume workflows.
+Resume interrupted flow workflows by analyzing current state and continuing directly.
 
-## Your Role
+## Command Process
 
-**Primary Goal**: Resume interrupted flow workflows by analyzing current state and continuing with appropriate next actions.
+### Step 1: Find Workspace
+**If workspace provided by user:** Use that workspace path
+**If no workspace provided:** 
+1. Check `.ai-workspace/` for available workflows
+2. Show user available options with current status  
+3. Ask user to select which workflow to continue
 
-**Continuation Process:**
-1. **Workspace Discovery**: Find and validate existing workflow workspace
-2. **State Analysis**: Read existing flow state and documents to understand current status  
-3. **Flow Supervision**: Delegate to shared workflow supervisor for resumption
+### Step 2: Load State and Context
+**Read existing documents:**
+1. `.ai-workspace/{workspace}/working-doc.md` - Load implementation plan and progress
+2. `@~/.claude/flow/feedback.md` - Apply user feedback preferences
 
-## Workflow Resumption
+**Determine current status:**
+- What phase: understanding/planning/execution/integration
+- Last completed step
+- Next step to execute
+- Any blockers or errors
 
-## Feedback Integration
+### Step 3: Assume Supervisor Role and Continue
 
-**ALWAYS read feedback before accessing `.ai-workspace/`**: Load and apply user feedback from `@~/.claude/flow/feedback.md`
+**Read supervisor agent file and assume role:**
+- Read @~/.claude/agents/flow/supervisor.md to assume the supervisor role
+- Based on current phase, continue supervising the workflow:
 
-**Apply supervision feedback**:
-- Filter for "supervision" phase feedback in the feedback file
-- Adapt delegation strategies based on user preferences
-- Adjust checkpoint frequency and detail level according to feedback
-- Modify workflow progression automation vs manual control based on guidance
+**Understanding Phase:** 
+- Read research progress, continue research analysis
+- Update research findings with new discoveries
+- Move to planning when research complete
 
+**Planning Phase:**
+- Read planning progress, continue step breakdown
+- Update working document with remaining steps
+- Move to execution when plan complete
 
-### Step 1: Workspace Discovery
-**If workspace not provided by user:**
-1. **List existing workspaces**: Check `.ai-workspace/` for available flows
-2. **Present options**: Show user available workflows with their current status
-3. **Get user selection**: Ask user which workflow to continue
+**Execution Phase:**
+- Read last completed step from working document
+- Execute next step in the implementation plan
+- Update progress and run validations
+- Create commits at checkpoint steps
 
-**If workspace provided:**
-1. **Validate workspace exists**: Ensure `.ai-workspace/{workspace}/` exists
-2. **Check for flow state**: Verify `flow-state.json` exists in workspace
+**Integration Phase:**
+- Complete final validations and testing
+- Prepare for merge/deployment
+- Create final commit
 
-### Step 2: State Analysis
-**Read and analyze existing documents:**
-1. **Flow State**: Read `.ai-workspace/{workspace}/flow-state.json`
-2. **Working Document**: Read `.ai-workspace/{workspace}/working-doc.md` 
-3. **Research Findings**: Read `.ai-workspace/{workspace}/research-findings.md` (if exists)
-4. **Implementation Notes**: Read `.ai-workspace/{workspace}/implementation-notes.md` (if exists)
+### Step 4: Update Progress
+Update `.ai-workspace/{workspace}/working-doc.md`:
+- Add continuation timestamp
+- Update current phase and progress
+- Log continuation action in workflow history
 
-**Determine Current Status:**
+## Working Document Progress Structure
+Progress tracking is maintained in the working-doc.md file with sections for:
 - Current phase (understanding/planning/execution/integration)
-- Completed steps and agent history
-- Next required actions
-- Any blocked or failed states
-- User checkpoint status
+- Completed steps with timestamps
+- Next steps to execute
+- Agent history and workflow checkpoints
+- Any blockers or issues encountered
 
-### Step 3: Assume Shared Workflow Supervisor Role
-Once state is analyzed, read and follow the shared workflow supervision logic:
+## Error Recovery
 
-**Read shared supervision logic**: @~/.claude/agents/flow/supervisor.md
+**If workspace doesn't exist:** List available workspaces or suggest creating new flow
+**If working document corrupted:** Ask user how to proceed (restart vs manual fix)
+**If execution blocked:** Report specific blockers and ask for guidance
 
-**Then supervise the workflow continuation directly** following those instructions exactly:
-- Mode: CONTINUE_WORKFLOW
-- Workspace: {analyzed_workspace_path}
-- Current phase: {determined_phase}
-- Last completed action: {last_action}
-- Next required action: {next_action}
-- User checkpoint needed: {yes/no}
-- Any error recovery needed: {error_details}
-- Resume from determined state and proceed through remaining phases with proper user checkpoints
+## Continuation Examples
 
-## State Continuity
+**Mid-execution continuation:**
+"Continuing execution of step 4/8: Implement user authentication. Last completed: Database schema setup."
 
-After delegation, ensure the shared supervisor updates `flow-state.json` with resumption information:
-- Add `resumed_at` timestamp
-- Include continuation notes in agent history
-- Maintain all existing workflow state
+**Between-phase continuation:**  
+"Planning phase complete. Ready to start execution phase with 6 implementation steps."
 
-## Continuation Scenarios
+## Quality Checks
+- [ ] Workspace exists and is readable
+- [ ] Working document contains valid phase information  
+- [ ] Working document has clear next steps
+- [ ] No unresolved blockers
 
-The shared workflow supervisor will handle:
-- **Mid-Phase Continuation**: Resume within current phase
-- **Between-Phase Continuation**: Move to next phase with user approval  
-- **Error Recovery**: Handle interrupted/failed workflows
-- **Checkpoint Approval**: Manage workflows waiting for user approval
-
-## Error Handling
-
-**If workspace discovery fails:**
-1. Present clear error message to user
-2. List available workspaces if any exist
-3. Suggest creating new workflow if none found
-
-**If state analysis fails:**
-1. Report specific issues with workspace/state
-2. Suggest recovery options (restart, manual fix)
-3. Ask user how to proceed
-
-**If delegation fails:**
-1. Report delegation error to user
-2. Provide fallback options
-3. Never attempt workflow supervision directly
-
-## Quality Gates
-
-Before delegating continuation:
-- [ ] Workspace exists and is valid
-- [ ] Flow state is readable and contains required information
-- [ ] Current phase and status can be determined
-- [ ] Next actions are identifiable
-
-Begin by asking user which workspace to continue, or offer to discover available flows.
+Start by discovering available workflows or asking which workspace to continue, then assume the supervisor role.
