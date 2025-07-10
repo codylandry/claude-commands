@@ -36,10 +36,10 @@ flowchart TD
     
     O --> P{Change scope identifiable?}
     P -->|No| Q["📝 Use generic scope indicators<br/>📋 Document scope uncertainty<br/>⚠️ Basic commit message approach"]
-    P -->|Yes| R["Step 8: Generate Commit Message<br/>📝 Create message following project format<br/>🎯 Focus on WHAT and WHY<br/>📋 Use imperative mood<br/>✅ Include Claude attribution"]
+    P -->|Yes| R["Step 8: Generate Commit Message<br/>📝 Create message following project format<br/>🎯 Focus on WHAT and WHY<br/>📋 Use imperative mood"]
     Q --> R
     
-    R --> S["Commit Message Format:<br/>🎫 [TICKET-123] Brief description (if ticket)<br/>📝 Brief description (if no ticket)<br/>📖 Optional detailed description<br/>📋 Key changes made<br/>⚙️ Important considerations<br/>🤖 Claude attribution"]
+    R --> S["Commit Message Format:<br/>🎫 [TICKET-123] Brief description (if ticket)<br/>📝 Brief description (if no ticket)<br/>📖 Optional detailed description<br/>📋 Key changes made<br/>⚙️ Important considerations"]
     
     S --> T{Ticket number identified?}
     T -->|Yes| U["📝 Format: [TICKET-123] Brief description<br/>🎯 Include ticket context<br/>📋 Reference ticket requirements"]
@@ -60,7 +60,7 @@ flowchart TD
     BB --> DD["Step 11: Execute Commit<br/>💻 Create commit using heredoc format<br/>📝 Execute git commit with formatted message<br/>⚡ Capture commit result"]
     CC --> DD
     
-    DD --> EE["💻 Execute git commit with heredoc format:<br/>• Use proper heredoc syntax<br/>• Include ticket reference<br/>• Add detailed description<br/>• Include Claude attribution<br/>• Format with line breaks"]
+    DD --> EE["💻 Execute git commit with heredoc format:<br/>• Use proper heredoc syntax<br/>• Include ticket reference<br/>• Add detailed description<br/>• Format with line breaks"]
     
     EE --> FF{Commit successful?}
     FF -->|No| GG["❌ Commit Failed<br/>📋 Capture commit error details<br/>🔧 Analyze error for troubleshooting<br/>📝 Provide error context and resolution"]
@@ -160,10 +160,6 @@ providing context about the business need or technical requirement.
 
 - Key changes made
 - Important considerations
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
 EOF
 )"
 ```
@@ -186,7 +182,6 @@ EOF
 - [ ] Business context explained when relevant
 - [ ] Technical details noted if complex
 - [ ] Ticket reference included if available
-- [ ] Claude attribution included
 - [ ] Proper formatting for readability
 
 ### Git Workspace Management

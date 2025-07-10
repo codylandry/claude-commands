@@ -16,16 +16,17 @@ def main():
     try:
         # Read input from stdin
         data = json.load(sys.stdin)
-        
+
         # Log all raw inputs to debug file
         try:
-            os.makedirs(".hook-logs", exist_ok=True)
-            with open(".hook-logs/stop.jsonl", "a") as f:
+            log_dir = "/Users/codylandry/repos/personal/claude-commands/.hook-logs"
+            os.makedirs(log_dir, exist_ok=True)
+            with open(f"{log_dir}/stop.jsonl", "a") as f:
                 json.dump(data, f)
                 f.write("\n")
         except Exception:
             pass
-        
+
         # Generate contextual completion message
         message = generate_completion_message(data)
         
