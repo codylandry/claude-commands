@@ -11,5 +11,40 @@
       "Write(~/.claude/flow/**/*)",
       "Edit(~/.claude/flow/**/*)"
     ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --with requests ~/.claude/hooks/notification.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --with requests ~/.claude/hooks/stop.py"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --with requests ~/.claude/hooks/subagent_stop.py"
+          }
+        ]
+      }
+    ]
   }
 }
