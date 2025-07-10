@@ -11,21 +11,24 @@ from utils.message_generator import generate_completion_message
 from utils.tts_manager import speak_text
 from utils.error_handler import log_error
 
+LOG_DIR = "~/.claude/.hook-logs"  # Directory for logging raw inputs
+LOG_INPUTS = True  # Set to False to disable logging raw inputs
+
 
 def main():
     try:
         # Read input from stdin
         data = json.load(sys.stdin)
 
-        # Log all raw inputs to debug file
-        try:
-            log_dir = "/Users/codylandry/repos/personal/claude-commands/.hook-logs"
-            os.makedirs(log_dir, exist_ok=True)
-            with open(f"{log_dir}/stop.jsonl", "a") as f:
-                json.dump(data, f)
-                f.write("\n")
-        except Exception:
-            pass
+        if LOG_INPUTS:
+            try:
+                # Create log directory if it doesn't exist
+                os.makedirs(LOG_DIR, exist_ok=True)
+                with open(f"{LOG_DIR}/notification.jsonl", "a") as f:
+                    json.dump(data, f)
+                    f.write("\n")
+            except Exception:
+                pass
 
         # Generate contextual completion message
         message = generate_completion_message(data)

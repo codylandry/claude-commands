@@ -19,28 +19,27 @@ from utils.tts_manager import speak_text
 from utils.error_handler import log_error
 
 
-def generate_dynamic_message(data):
-    """Generate a dynamic message using enhanced context extraction."""
-    return generate_enhanced_notification_message(data)
+LOG_DIR = "~/.claude/.hook-logs"  # Directory for logging raw inputs
+LOG_INPUTS = True  # Set to False to disable logging raw inputs
 
 
 def main():
     try:
         # Read input from stdin
         data = json.load(sys.stdin)
-        
-        # Log all raw inputs to debug file
-        try:
-            log_dir = "/Users/codylandry/repos/personal/claude-commands/.hook-logs"
-            os.makedirs(log_dir, exist_ok=True)
-            with open(f"{log_dir}/notification.jsonl", "a") as f:
-                json.dump(data, f)
-                f.write("\n")
-        except Exception:
-            pass
+
+        if LOG_INPUTS:
+            try:
+                # Create log directory if it doesn't exist
+                os.makedirs(LOG_DIR, exist_ok=True)
+                with open(f"{LOG_DIR}/notification.jsonl", "a") as f:
+                    json.dump(data, f)
+                    f.write("\n")
+            except Exception:
+                pass
         
         # Generate dynamic message
-        message = generate_dynamic_message(data)
+        message = generate_enhanced_notification_message(data)
         
         # Speak the message using improved TTS manager
         speak_text(message)
