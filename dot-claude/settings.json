@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run --with requests ~/.claude/hooks/notification.py"
+            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/notification.py"
           }
         ]
       }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "uv run --with requests ~/.claude/hooks/stop.py"
+            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/stop.py"
           }
         ]
       }
