@@ -69,6 +69,7 @@ Include relevant details that future developers would find helpful.
 - Include context from the broader work when relevant
 - Reference related tickets if they provide important context
 - **IMPORTANT**: Do NOT mention the current 'step' being worked on or reference internal working process documents (like plan_work.md, execute_step.md) as these are internal workflow tools not shared with others
+- **CRITICAL**: NEVER include "Generated with Claude" or "Co-Authored-By: Claude" attribution text in commit messages
 
 ## Implementation Workflow
 
@@ -101,6 +102,7 @@ Copy final message to clipboard: `echo "commit message" | pbcopy`
 - [ ] Business context explained
 - [ ] Technical details noted (if complex)
 - [ ] Follows project conventions
+- [ ] NO Claude attribution text included
 
 ## Context Sources Priority (Efficient Approach)
 

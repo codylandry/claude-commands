@@ -1,3 +1,8 @@
 # IDE folders
 .idea/
 .vscode/
+
+# Hook logs and virtual environments
+.hook-logs/
+.venv/
+**/__pycache__/

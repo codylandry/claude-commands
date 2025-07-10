@@ -11,5 +11,29 @@
       "Write(~/.claude/flow/**/*)",
       "Edit(~/.claude/flow/**/*)"
     ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/notification.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/.venv/bin/python ~/.claude/hooks/stop.py"
+          }
+        ]
+      }
+    ]
   }
 }

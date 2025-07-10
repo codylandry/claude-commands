@@ -31,6 +31,16 @@ This is your global Claude Code configuration that applies across all projects.
 - Verify tests pass before considering a task complete
 - Use the Task tool for broad searches rather than trying multiple grep/glob attempts
 
+### Commit Message Behavior
+- NEVER include Claude attribution text in commit messages
+- NEVER add the following to commit messages:
+  ```
+  🤖 Generated with [Claude Code](https://claude.ai/code)
+
+  Co-Authored-By: Claude <noreply@anthropic.com>
+  ```
+- Follow standard git commit conventions without AI attribution
+
 ## Repository Structure Conventions
 
 ### .ai-workspace Directory
