@@ -34,17 +34,6 @@
           }
         ]
       }
-    ],
-    "SubagentStop": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "uv run --with requests ~/.claude/hooks/subagent_stop.py"
-          }
-        ]
-      }
     ]
   }
 }
