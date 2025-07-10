@@ -13,10 +13,11 @@ Features:
 import json
 import sys
 import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from utils.message_generator import generate_enhanced_notification_message
-from utils.tts_manager import speak_text
-from utils.error_handler import log_error
+from lib.message_generator import generate_enhanced_notification_message
+from lib.tts_manager import speak_text
+from lib.error_handler import log_error
 
 
 LOG_DIR = "~/.claude/.hook-logs"  # Directory for logging raw inputs

@@ -132,6 +132,26 @@ Each phase includes:
 - `flow.continue` - Resume existing workflows from current state in working-doc.md
 - `flow.tune` - Collect feedback to improve flow system performance
 
+### Notification Tools
+Claude can use audible notifications to get the user's attention when appropriate:
+
+- `~/.claude/tools/speak.py "message"` - Speak text using TTS
+- `echo "message" | ~/.claude/tools/speak.py` - Speak text from pipe
+- `~/.claude/tools/speak.py --voice nova "message"` - Use specific OpenAI voice
+- `~/.claude/tools/speak.py --macos-only "message"` - Use only macOS TTS
+
+**When to Use Notifications:**
+- Long-running operations complete (builds, tests, deployments)
+- Critical errors require immediate attention
+- Important milestones reached in complex workflows
+- User requested to be notified of specific events
+
+**Usage Guidelines:**
+- Keep messages concise and informative
+- Use sparingly to avoid notification fatigue
+- Prefer OpenAI TTS for better quality when available
+- Include context about what completed or needs attention
+
 ### Ticket Management
 - Use `jira issue view <key> --raw | jq` for detailed ticket information
 - Check parent and linked tickets for additional context

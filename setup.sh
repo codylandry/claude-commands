@@ -53,10 +53,46 @@ else
     exit 1
 fi
 
+# Setup hooks virtual environment
+echo ""
+echo "🐍 Setting up hooks virtual environment..."
+VENV_DIR="$CLAUDE_DIR/.venv"
+
+# Source asdf if available
+if [ -f "$HOME/.asdf/asdf.sh" ]; then
+    source "$HOME/.asdf/asdf.sh"
+fi
+
+# Remove existing venv if it exists
+if [ -d "$VENV_DIR" ]; then
+    echo "📦 Removing existing virtual environment..."
+    rm -rf "$VENV_DIR"
+fi
+
+# Create new virtual environment
+echo "🔨 Creating virtual environment..."
+if command -v python3 &> /dev/null; then
+    python3 -m venv "$VENV_DIR"
+else
+    /usr/bin/python3 -m venv "$VENV_DIR"
+fi
+
+# Install dependencies if requirements.txt exists
+REQUIREMENTS_FILE="$REPO_DIR/requirements.txt"
+if [ -f "$REQUIREMENTS_FILE" ]; then
+    echo "📦 Installing hook dependencies..."
+    "$VENV_DIR/bin/pip" install --upgrade pip > /dev/null 2>&1
+    "$VENV_DIR/bin/pip" install -r "$REQUIREMENTS_FILE" > /dev/null 2>&1
+    echo "✅ Hook dependencies installed"
+else
+    echo "⚠️  Warning: No requirements.txt found for hooks"
+fi
+
 echo ""
 echo "🎉 Setup complete! Your Claude commands are now version controlled."
 echo "   Repository: $REPO_DIR"
 echo "   Commands: $COMMANDS_DIR"
+echo "   Hooks venv: $VENV_DIR"
 echo ""
 echo "To make changes:"
 echo "  1. Edit files in: $REPO_DIR/dot-claude/commands/"
