@@ -161,3 +161,8 @@ Claude can use audible notifications to get the user's attention when appropriat
 @context/context.md
 
 This section provides comprehensive guidance on where to find contextual information and how to use available MCP servers and local context files effectively for different types of development tasks.
+
+## Local Development Environment Setup
+
+### asdf Version Management
+- Do not change my global asdf installed versions

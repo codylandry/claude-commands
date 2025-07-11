@@ -25,38 +25,38 @@ flowchart TD
     J -->|Yes| L["Step 5: PHASE 1 - Understanding<br/>📄 Update working-doc.md with phase transition<br/>🔧 Task → agents/flow/research<br/>📝 'Analyze ticket and codebase - produce research-findings.md'"]
     
     L --> M{Research completed successfully?}
-    M -->|No| N["⚠️ Update working-doc.md with blocker<br/>📄 Document research failure in working-doc.md<br/>📝 Record blocker details and status<br/>📋 Report to user with details"]
-    M -->|Yes| O["✅ Update milestone completion<br/>📄 Mark requirements milestone complete in working-doc.md<br/>📝 Update progress tracking section<br/>📊 Present research findings to user"]
+    M -->|No| N["⚠️ Update working-doc.md with blocker<br/>📄 Document research failure in working-doc.md<br/>📝 Record blocker details and status<br/>📋 Report to user with details<br/>🔊 ~/.claude/tools/speak.py 'Research phase failed - attention needed'"]
+    M -->|Yes| O["✅ Update milestone completion<br/>📄 Mark requirements milestone complete in working-doc.md<br/>📝 Update progress tracking section<br/>📊 Present research findings to user<br/>🔊 ~/.claude/tools/speak.py 'Research phase completed successfully'"]
     O --> P{User approves to continue?}
     P -->|No| Q["⏸️ Pause workflow<br/>📄 Update working-doc.md with pause status<br/>📝 Record 'Workflow paused - awaiting user input'<br/>⏳ Wait for user guidance"]
     P -->|Yes| R["Step 6: PHASE 2 - Planning<br/>📄 Update working-doc.md with planning phase<br/>📝 Set current phase to planning<br/>🔧 Task → agents/flow/planning<br/>📝 'Create implementation plan from research-findings.md'"]
     
     R --> S{Planning completed successfully?}
-    S -->|No| T["⚠️ Update working-doc.md with blocker<br/>📄 Document planning failure in working-doc.md<br/>📝 Record blocker details and status<br/>📋 Report to user with details"]
-    S -->|Yes| U["✅ Update milestone completion<br/>📄 Mark planning milestone complete in working-doc.md<br/>📝 Update progress tracking section<br/>📊 Present implementation plan to user"]
+    S -->|No| T["⚠️ Update working-doc.md with blocker<br/>📄 Document planning failure in working-doc.md<br/>📝 Record blocker details and status<br/>📋 Report to user with details<br/>🔊 ~/.claude/tools/speak.py 'Planning phase failed - attention needed'"]
+    S -->|Yes| U["✅ Update milestone completion<br/>📄 Mark planning milestone complete in working-doc.md<br/>📝 Update progress tracking section<br/>📊 Present implementation plan to user<br/>🔊 ~/.claude/tools/speak.py 'Planning phase completed successfully'"]
     U --> V{User approves to continue?}
     V -->|No| W["⏸️ Pause workflow<br/>📝 Same pause protocol as step Q"]
     V -->|Yes| X["Step 7: PHASE 3 - Execution<br/>📄 Update working-doc.md with execution phase<br/>📝 Set current phase to execution<br/>🔄 Begin step-by-step execution loop"]
     
     X --> Y["Execute Next Step Loop:<br/>📋 Get next unchecked step from working-doc.md<br/>📄 Update working-doc.md with current step status<br/>📝 Record 'Implementing step X of Y: {description}'<br/>🔧 Task → agents/flow/execution<br/>📝 'Execute ONLY step X: {specific_step_details}'"]
     Y --> Z{Step completed successfully?}
-    Z -->|No| AA["⚠️ Handle execution blocker<br/>📄 Document execution failure in working-doc.md<br/>📝 Record 'Step X failed: {error}' in blockers section<br/>📋 Report issue to user with details"]
+    Z -->|No| AA["⚠️ Handle execution blocker<br/>📄 Document execution failure in working-doc.md<br/>📝 Record 'Step X failed: {error}' in blockers section<br/>📋 Report issue to user with details<br/>🔊 ~/.claude/tools/speak.py 'Execution step failed - attention needed'"]
     Z -->|Yes| BB["✅ Update progress and commit<br/>📄 Mark step complete in working-doc.md<br/>📝 Update progress tracking and quality status<br/>🔧 Task → agents/flow/commit<br/>📝 'Create commit for step X completion'"]
     BB --> CC["📄 Update working-doc.md with commit<br/>📝 Record commit hash and update milestone progress"]
     CC --> DD{More steps to execute?}
     DD -->|Yes| EE["📊 Present progress to user<br/>📈 Show completed steps and remaining work<br/>🎯 Highlight current milestone progress"]
-    DD -->|No| FF["Step 8: PHASE 4 - Integration<br/>📄 Update working-doc.md with integration phase<br/>📝 Set current phase to integration<br/>🔧 Task → agents/flow/validation<br/>📝 'Perform comprehensive quality validation'"]
+    DD -->|No| FF["Step 8: PHASE 4 - Integration<br/>📄 Update working-doc.md with integration phase<br/>📝 Set current phase to integration<br/>🔧 Task → agents/flow/validation<br/>📝 'Perform comprehensive quality validation'<br/>🔊 ~/.claude/tools/speak.py 'Execution phase completed - entering validation'"]
     EE --> GG{User approves to continue?}
     GG -->|No| HH["⏸️ Pause workflow<br/>📝 Same pause protocol as step Q"]
     GG -->|Yes| Y
     
     FF --> II{Validation passed?}
-    II -->|No| JJ["❌ Block integration<br/>📄 Update working-doc.md with error status<br/>📝 Record 'Validation failed' in blockers section<br/>📋 Present validation issues to user"]
-    II -->|Yes| KK["✅ Prepare for integration<br/>📄 Update working-doc.md with healthy status<br/>📝 Mark 'Code review ready' milestone complete<br/>🔧 Task → create_mr_description<br/>📝 'Generate MR documentation'"]
+    II -->|No| JJ["❌ Block integration<br/>📄 Update working-doc.md with error status<br/>📝 Record 'Validation failed' in blockers section<br/>📋 Present validation issues to user<br/>🔊 ~/.claude/tools/speak.py 'Validation failed - attention needed'"]
+    II -->|Yes| KK["✅ Prepare for integration<br/>📄 Update working-doc.md with healthy status<br/>📝 Mark 'Code review ready' milestone complete<br/>🔧 Task → create_mr_description<br/>📝 'Generate MR documentation'<br/>🔊 ~/.claude/tools/speak.py 'Validation passed - ready for integration'"]
     KK --> LL["📊 Present final results to user<br/>📈 Show completion summary<br/>🎯 Highlight all completed milestones<br/>📋 Present MR documentation"]
     LL --> MM{User approves for MR creation?}
     MM -->|No| NN["⏸️ Pause for final review<br/>📝 Same pause protocol as step Q"]
-    MM -->|Yes| OO["🎉 Complete workflow<br/>📄 Update working-doc.md with completion<br/>📝 Mark 'Workflow completed successfully' milestone<br/>✅ Set final status as completed"]
+    MM -->|Yes| OO["🎉 Complete workflow<br/>📄 Update working-doc.md with completion<br/>📝 Mark 'Workflow completed successfully' milestone<br/>✅ Set final status as completed<br/>🔊 ~/.claude/tools/speak.py 'Workflow completed successfully!'"]
     OO --> PP[End - Workflow Complete]
     
     %% Error recovery paths
@@ -116,6 +116,14 @@ flowchart TD
 2. Specific task description with context
 3. Expected deliverable
 4. Apply feedback preferences for instruction detail level
+
+### Audible Notifications
+**Use ~/.claude/tools/speak.py for key events:**
+- Phase completions (research, planning, execution, validation)
+- Critical failures requiring user attention
+- Workflow completion
+- Major milestone achievements
+- Error states that block progress
 
 ### Working Document Updates
 - Update current phase in working-doc.md header
