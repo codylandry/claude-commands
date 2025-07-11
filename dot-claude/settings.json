@@ -4,12 +4,23 @@
       "Read(.ai-workspace/**/*)",
       "Write(.ai-workspace/**/*)",
       "Edit(.ai-workspace/**/*)",
+      "LST(.ai-workspace/**/*)",
       "Read(~/.claude/commands/*.md)",
       "Read(~/.claude/commands/**/*.md)",
       "Read(~/.claude/agents/**/*.md)",
       "Read(~/.claude/flow/**/*)",
       "Write(~/.claude/flow/**/*)",
-      "Edit(~/.claude/flow/**/*)"
+      "Edit(~/.claude/flow/**/*)",
+      "Bash(jira me)",
+      "Bash(jira issue list:*)",
+      "Bash(jira issue view:*)",
+      "Bash(jira epic list:*)",
+      "Bash(glab ci list:*)",
+      "Bash(glab ci get:*)",
+      "Bash(glab ci view:*)",
+      "Bash(glab mr view:*)",
+      "Bash(glab mr list:*)",
+      "Bash(~/.claude/tools/:*)"
     ]
   },
   "hooks": {

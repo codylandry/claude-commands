@@ -46,6 +46,7 @@ This is your global Claude Code configuration that applies across all projects.
 ### .ai-workspace Directory
 
 The `.ai-workspace` directory is used for collaborative AI development work. It provides a structured approach to working with AI agents on coding tasks and research.
+The `.ai-workspace` directory is generally ignored by git via .git/info/exclude
 
 #### Directory Structure
 
@@ -59,7 +60,7 @@ The `.ai-workspace` directory is used for collaborative AI development work. It 
     └── research-findings.md
 ```
 
-#### Usage Guidelines
+#### Flow System Usage Guidelines
 
 **Per-Ticket Organization**: Each ticket, issue, or task gets its own subdirectory named with the ticket identifier (e.g., JIRA key, GitHub issue number).
 
@@ -127,18 +128,12 @@ Each phase includes:
 
 ## Tools and Shortcuts
 
-### Flow Command Usage
-- `flow.start` - Start new development workflows (reads feedback from `~/.claude/flow/feedback.md`)
-- `flow.continue` - Resume existing workflows from current state in working-doc.md
-- `flow.tune` - Collect feedback to improve flow system performance
-
 ### Notification Tools
 Claude can use audible notifications to get the user's attention when appropriate:
 
 - `~/.claude/tools/speak.py "message"` - Speak text using TTS
 - `echo "message" | ~/.claude/tools/speak.py` - Speak text from pipe
 - `~/.claude/tools/speak.py --voice nova "message"` - Use specific OpenAI voice
-- `~/.claude/tools/speak.py --macos-only "message"` - Use only macOS TTS
 
 **When to Use Notifications:**
 - Long-running operations complete (builds, tests, deployments)
@@ -149,7 +144,6 @@ Claude can use audible notifications to get the user's attention when appropriat
 **Usage Guidelines:**
 - Keep messages concise and informative
 - Use sparingly to avoid notification fatigue
-- Prefer OpenAI TTS for better quality when available
 - Include context about what completed or needs attention
 
 ### Ticket Management
@@ -161,3 +155,9 @@ Claude can use audible notifications to get the user's attention when appropriat
 - All progress tracked in working-doc.md for workflow continuity
 - Use research-findings.md for architectural decisions and technical insights
 - Flow commands automatically discover/create workspaces in `.ai-workspace/`
+
+## Context Gathering
+
+@context/context.md
+
+This section provides comprehensive guidance on where to find contextual information and how to use available MCP servers and local context files effectively for different types of development tasks.
